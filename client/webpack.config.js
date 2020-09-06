@@ -15,6 +15,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                loader: 'awesome-typescript-loader',
+                exclude: [/node_modules/],
+            },
+            {
                 test: /\.js$/,
                 exclude: [/node_modules/],
                 use: [
@@ -27,8 +32,8 @@ module.exports = {
                 ]
             }
         ]
-        
-    }
-    
-};
 
+    },
+    resolve: { extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'] }
+
+};

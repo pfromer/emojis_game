@@ -1,11 +1,11 @@
 import React from 'react';
-import TaskList from './components/TaskList';
-import Buttons from './components/Buttons';
+import Start from './components/Start/Start';
+import Card from './components/Card/Card';
 
 const App = () => (
-  <div style={{margin: 20}}>
-    <Buttons/>
-    <TaskList/>
+  <div>
+    <Start />
+    <Card />
   </div>
 );
 
