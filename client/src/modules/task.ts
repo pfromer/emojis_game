@@ -1,6 +1,6 @@
 import * as io from 'socket.io-client';
-import { eventChannel, delay } from 'redux-saga';
-import { take, call, put, fork, race, cancelled } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
+import { take, call, put, fork, race, cancelled, delay } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 
 const ADD_TASK = 'ADD_TASK';
