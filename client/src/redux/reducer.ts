@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import taskReducer from '../modules/task';
-import gameReducer from '../modules/gameReducer';
+import taskReducer from '../ducks/task';
+import gameReducer from '../ducks/gameReducer';
 
 const rootReducer = combineReducers({
   taskReducer,

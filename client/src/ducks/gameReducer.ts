@@ -1,5 +1,5 @@
 import { Game, Card, Icon, Player } from '../types/game';
-import { allCards } from './allCards';
+import { allCards } from '../modules/allCards';
 
 const ADD_PLAYER = 'ADD_PLAYER';
 const START_PLAYING = 'START_PLAYING';

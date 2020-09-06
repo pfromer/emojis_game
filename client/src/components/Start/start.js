@@ -25,7 +25,7 @@ const Start = (props) => {
 
     const onStartPlayingClickHandler = () => {
         dispatch({
-            type: 'START_PLAYING'
+            type: 'START_PLAYING_ASYNC'
         })
     };
 
