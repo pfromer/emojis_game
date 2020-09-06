@@ -1,11 +1,11 @@
 import React from 'react';
 import Start from './components/Start/Start';
-import Card from './components/Card/Card';
+import Table from './components/Table/Table';
 
 const App = () => (
   <div>
     <Start />
-    <Card />
+    <Table />
   </div>
 );
 

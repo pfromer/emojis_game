@@ -181,14 +181,7 @@ export const allCards: Card[] = [{
     ]
 },
 {
-/**44
-17
-14
-8
-26
-38
-31
-50 muñeco de nieve */  id: 11,
+    id: 11,
     icons: [
         allIcons[44],
         allIcons[17],
@@ -201,23 +194,29 @@ export const allCards: Card[] = [{
     ]
 },
 {
-/**22 fantasma
-23 anteojos
-24 candado
-21
-25 canada
-3
-26 vela
-11 */  id: 12,
+    id: 12,
     icons: [
+        allIcons[29],
+        allIcons[44],
+        allIcons[2],
+        allIcons[13],
+        allIcons[51],
+        allIcons[20],
         allIcons[22],
+        allIcons[36]
+    ]
+},
+{
+    id: 13,
+    icons: [
+        allIcons[46],
+        allIcons[40],
+        allIcons[12],
+        allIcons[52],
         allIcons[23],
-        allIcons[24],
-        allIcons[21],
-        allIcons[25],
-        allIcons[3],
-        allIcons[26],
-        allIcons[11]
+        allIcons[38],
+        allIcons[36],
+        allIcons[5],
     ]
 }
 ];
