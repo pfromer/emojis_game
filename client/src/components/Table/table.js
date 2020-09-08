@@ -1,19 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '../Card/Card';
+import {Container, CurrentPlayer, CurrentCard, ComputerPlayer} from './Styles'
+
+const cardWidth = {
+   currentPlayer : '20vh',
+   currentCard : '30vh',
+   computerPlayer : '30vh',
+}
 
 const Table = (props) => {
     const { gameStarted, iconsCurrentPlayer, iconsCurrentCard, iconsComputerPlayer } = props;
     return (
-        <div>
-            {gameStarted &&
-                <div>
-                    <Card icons={iconsCurrentPlayer}></Card>
-                    <Card icons={iconsCurrentCard} ></Card>
-                    <Card icons={iconsComputerPlayer}></Card>
-                </div>
-            }
-        </div>
+      <Container>
+        {gameStarted && (
+          <React.Fragment>
+            {/* este div es el mazo del jugador, en la que tendra mas de 1 carta*/}
+            <CurrentPlayer >
+              <Card icons={iconsCurrentPlayer} cardWidth={cardWidth.currentPlayer}></Card>
+            </CurrentPlayer>
+
+
+            {/* este div es el mazo del centro, en la que tendra mas de 1 carta*/}
+            <CurrentCard>
+              <Card icons={iconsCurrentCard} cardWidth={cardWidth.currentCard}></Card>
+            </CurrentCard>
+
+            {/* este div es el mazo de la compu, en la que tendra mas de 1 carta*/}
+            <ComputerPlayer>
+              <Card icons={iconsComputerPlayer} cardWidth={cardWidth.computerPlayer}></Card>
+            </ComputerPlayer>
+          </React.Fragment>
+        )}
+      </Container>
     );
 };
 
