@@ -3,10 +3,10 @@ import Start from './components/Start/Start';
 import Table from './components/Table/Table';
 
 const App = () => (
-  <div>
+  <React.Fragment>
     <Start />
     <Table />
-  </div>
+  </React.Fragment>
 );
 
 export default App;
