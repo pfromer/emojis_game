@@ -17,7 +17,7 @@ export function* computerPlay() {
 
 
     let computerCard = yield select(computerCardSelector);
-    /*while (computerCard != null) {
+    while (computerCard != null) {
         yield call(delay, 8000);
         let currentCard = yield select(currentCardSelector);
         let commonIcon = yield call(iconInCommon, currentCard, computerCard);
@@ -27,7 +27,7 @@ export function* computerPlay() {
             playerId: 2
         })
         computerCard = yield select(computerCardSelector);
-    }*/
+    }
 }
 
 // Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC

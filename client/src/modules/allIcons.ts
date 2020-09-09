@@ -2,6 +2,11 @@ import { Icon } from "../types/game";
 
 export const allIcons: Icon[] = [
     {
+        name: "langostintop",
+        id: 0,
+        image: "🦐"
+    },
+    {
         name: "Corazon",
         id: 1,
         image: "💝"
@@ -160,7 +165,7 @@ export const allIcons: Icon[] = [
         image: "🎓"
     }, {
         name: "microfono",
-        id: 30,
+        id: 40,
         image: "🎤"
     }, {
         name: "dardo",
@@ -230,10 +235,21 @@ export const allIcons: Icon[] = [
         name: "unicornio",
         id: 57,
         image: "🦄"
-    }, {
+    },
+    {
         name: "langostintop",
         id: 58,
         image: "🦐"
+    },
+    {
+        name: "langostintop",
+        id: 58,
+        image: "🦐"
+    },
+    {
+        name: "zombie",
+        id: 59,
+        image: "🧟"
     }
 ]
 

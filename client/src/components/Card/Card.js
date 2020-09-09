@@ -4,10 +4,10 @@ import { StyledCard } from './Styles.js'
 import { Icon } from '../Icon/Icon'
 
 export const Card = (props) => {
-    const { icons, cardWidth } = props;
+    const { icons, cardWidth, clickable } = props;
     return (
         <StyledCard cardWidth={cardWidth}>
-            {icons.map((v, i) => <Icon key={i} i={i} image={v.image} />)}
+            {icons.map((icon, index) => <Icon key={index} index={index} icon={icon} clickable={clickable} />)}
         </StyledCard>
     );
 };

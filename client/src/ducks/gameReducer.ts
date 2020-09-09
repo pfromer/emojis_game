@@ -8,6 +8,7 @@ const PLAYER_GUESS = 'PLAYER_GUESS';
 const builDeck = (): Card[] => {
     let result = [];
     let allCardsCopy = allCards.slice();
+    debugger
 
     for (let i = 0; i < allCards.length; i++) {
         let n = Math.floor((Math.random() * allCardsCopy.length));
