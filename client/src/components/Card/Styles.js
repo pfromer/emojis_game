@@ -1,4 +1,16 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
+
+
+
+const moveToCenter = keyframes`
+  from {
+    top: ${p => p.top + '%'};
+  }
+
+  to {
+    top: 35%;
+  }
+`;
 
 export const StyledCard = styled.div`
     height: ${p => p.cardWidth};
@@ -8,5 +20,13 @@ export const StyledCard = styled.div`
     border-radius: 50%;
     font-size: ${p => p.cardWidth};
     display: inline-block;
-    position: relative;
+    position: absolute;
+    top: ${p => p.top + '%'};
+    left: ${p => p.left + '%'};
+    z-index: ${p => p.zIndex};
+
+    ${p => p.isCentered && css`
+        animation: ${moveToCenter} 0.2s linear;
+        animation-fill-mode: forwards;
+    `}
 `

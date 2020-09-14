@@ -1,10 +1,11 @@
-import { all } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import { startStopChannel } from '../ducks/task';
-import { watchStartPlaying } from '../sagas/game-saga';
+import { watchStartPlaying, watchPlayerGuess } from '../sagas/game-saga';
+
 
 export default function* rootSaga() {
-  yield all([
-    startStopChannel(),
-    watchStartPlaying()
-  ]);
+  yield fork(watchPlayerGuess)
+  yield fork(startStopChannel)
+  yield fork(watchStartPlaying)
+  // code after fork-effect
 }

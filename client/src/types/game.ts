@@ -6,25 +6,34 @@ export type Icon = {
 
 export type Card = {
     id: number
-    icons: Icon[]
+    icons: Icon[],
+}
+
+export interface PositionedCard extends Card {
+    top: number,
+    left: number,
+    zIndex: number,
+    isCentered: boolean
 }
 
 
 export type Player = {
     id: number
     name: string
-    cards: Card[]
+    cards: PositionedCard[]
     currentCard: Card | null
     isCurrentPlayer: Boolean
 }
 
 export type Game = {
     players: Player[]
-    deck: Card[]
-    currentCard: Card | null
+    deck: PositionedCard[]
+    currentCard: PositionedCard | null
     winner: Player | null
     gameOver: boolean,
-    started: boolean
+    started: boolean,
+    zIndex: number,
+    allCards: PositionedCard[]
 }
 
 /*
