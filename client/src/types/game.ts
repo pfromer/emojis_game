@@ -13,7 +13,8 @@ export interface PositionedCard extends Card {
     top: number,
     left: number,
     zIndex: number,
-    isCentered: boolean
+    isCentered: boolean,
+    index: number
 }
 
 

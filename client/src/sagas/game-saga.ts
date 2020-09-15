@@ -31,9 +31,7 @@ export function* computerPlay() {
         yield put({
             type: 'MOVE_CURRENT_CARD_TO_CENTER'
         });
-
     }
-
 }
 
 export function* play(action) {

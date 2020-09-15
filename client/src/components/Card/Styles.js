@@ -9,6 +9,7 @@ const moveToCenter = keyframes`
 
   to {
     top: 35%;
+    left: 50%;
   }
 `;
 
@@ -22,7 +23,7 @@ export const StyledCard = styled.div`
     display: inline-block;
     position: absolute;
     top: ${p => p.top + '%'};
-    left: ${p => p.left + '%'};
+    left: ${p => (p.left + p.index) + '%'};
     z-index: ${p => p.zIndex};
 
     ${p => p.isCentered && css`

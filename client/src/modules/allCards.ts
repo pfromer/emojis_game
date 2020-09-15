@@ -284,11 +284,10 @@ export const allCards: Card[] = [{
         allIcons[41],
     ]
 },
-/*
 {
     id: 19,
     icons: [
-        allIcons[59], //este icono no existe
+        allIcons[58], //este icono no existe
         allIcons[11],
         allIcons[2],
         allIcons[38],
@@ -297,7 +296,7 @@ export const allCards: Card[] = [{
         allIcons[18],
         allIcons[49],
     ]
-},*/
+},
 {
     id: 20,
     icons: [
@@ -347,7 +346,7 @@ export const allCards: Card[] = [{
         allIcons[34],
         allIcons[27],
         allIcons[22],
-        allIcons[27],
+        allIcons[10],
     ]
 },
 {
@@ -510,9 +509,11 @@ export const allCards: Card[] = [{
         allIcons[57],
     ]
 },
+
 {
     id: 36,
     icons: [
+
         allIcons[34],
         allIcons[48],
         allIcons[38],
@@ -523,6 +524,272 @@ export const allCards: Card[] = [{
         allIcons[9],
     ]
 },
+{
+    id: 37,
+    icons: [
+
+        allIcons[41],
+        allIcons[31],
+        allIcons[13],
+        allIcons[21],
+        allIcons[5],
+        allIcons[37],
+        allIcons[58],
+        allIcons[39],
+    ]
+},
+{
+    id: 38,
+    icons: [
+
+        allIcons[1],
+        allIcons[49],
+        allIcons[56],
+        allIcons[36],
+        allIcons[43],
+        allIcons[10],
+        allIcons[31],
+        allIcons[25],
+    ]
+},
+{
+    id: 39,
+    icons: [
+
+        allIcons[40],
+        allIcons[24],
+        allIcons[31],
+        allIcons[20],
+        allIcons[54],
+        allIcons[4],
+        allIcons[48],
+        allIcons[55],
+    ]
+},
+{
+    id: 40,
+    icons: [
+
+        allIcons[52],
+        allIcons[28],
+        allIcons[9],
+        allIcons[25],
+        allIcons[55],
+        allIcons[2],
+        allIcons[41],
+        allIcons[17],
+    ]
+},
+{
+    id: 41,
+    icons: [
+
+        allIcons[39],
+        allIcons[1],
+        allIcons[44],
+        allIcons[55],
+        allIcons[46],
+        allIcons[11],
+        allIcons[30],
+        allIcons[34],
+    ]
+},
+{
+    id: 42,
+    icons: [
+
+        allIcons[7],
+        allIcons[11],
+        allIcons[31],
+        allIcons[52],
+        allIcons[51],
+        allIcons[35],
+        allIcons[42],
+        allIcons[16],
+    ]
+},
+{
+    id: 43,
+    icons: [
+
+        allIcons[52],
+        allIcons[20],
+        allIcons[14],
+        allIcons[58],
+        allIcons[57],
+        allIcons[56],
+        allIcons[3],
+        allIcons[34],
+    ]
+},
+{
+    id: 44,
+    icons: [
+
+        allIcons[43],
+        allIcons[53],
+        allIcons[47],
+        allIcons[11],
+        allIcons[20],
+        allIcons[28],
+        allIcons[5],
+        allIcons[50],
+    ]
+},
+{
+    id: 45,
+    icons: [
+
+        allIcons[52],
+        allIcons[29],
+        allIcons[18],
+        allIcons[8],
+        allIcons[10],
+        allIcons[47],
+        allIcons[24],
+        allIcons[39],
+    ]
+},
+{
+    id: 46,
+    icons: [
+
+        allIcons[24],
+        allIcons[32],
+        allIcons[19],
+        allIcons[35],
+        allIcons[56],
+        allIcons[5],
+        allIcons[44],
+        allIcons[9],
+    ]
+},
+{
+    id: 47,
+    icons: [
+
+        allIcons[46],
+        allIcons[51],
+        allIcons[56],
+        allIcons[21],
+        allIcons[54],
+        allIcons[28],
+        allIcons[15],
+        allIcons[8],
+    ]
+},
+{
+    id: 48,
+    icons: [
+
+        allIcons[15],
+        allIcons[7],
+        allIcons[17],
+        allIcons[58],
+        allIcons[24],
+        allIcons[30],
+        allIcons[36],
+        allIcons[53],
+    ]
+},
+{
+    id: 49,
+    icons: [
+
+        allIcons[52],
+        allIcons[22],
+        allIcons[32],
+        allIcons[1],
+        allIcons[50],
+        allIcons[37],
+        allIcons[15],
+        allIcons[48],
+    ]
+},
+{
+    id: 50,
+    icons: [
+
+        allIcons[43],
+        allIcons[46],
+        allIcons[14],
+        allIcons[2],
+        allIcons[24],
+        allIcons[37],
+        allIcons[16],
+        allIcons[27],
+    ]
+},
+{
+    id: 51,
+    icons: [
+
+        allIcons[4],
+        allIcons[16],
+        allIcons[47],
+        allIcons[38],
+        allIcons[41],
+        allIcons[22],
+        allIcons[56],
+        allIcons[30],
+    ]
+},
+{
+    id: 52,
+    icons: [
+
+        allIcons[45],
+        allIcons[52],
+        allIcons[49],
+        allIcons[21],
+        allIcons[4],
+        allIcons[44],
+        allIcons[53],
+        allIcons[27],
+    ]
+},
+{
+    id: 54,
+    icons: [
+
+        allIcons[22],
+        allIcons[12],
+        allIcons[35],
+        allIcons[43],
+        allIcons[55],
+        allIcons[45],
+        allIcons[58],
+        allIcons[8],
+    ]
+},
+{
+    id: 55,
+    icons: [
+
+        allIcons[22],
+        allIcons[39],
+        allIcons[19],
+        allIcons[28],
+        allIcons[7],
+        allIcons[14],
+        allIcons[40],
+        allIcons[49],
+    ]
+},
+{
+    id: 56,
+    icons: [
+
+        allIcons[51],
+        allIcons[37],
+        allIcons[53],
+        allIcons[10],
+        allIcons[3],
+        allIcons[38],
+        allIcons[55],
+        allIcons[19],
+    ]
+}
 
 
 ];

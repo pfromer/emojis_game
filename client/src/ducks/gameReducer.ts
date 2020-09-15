@@ -16,7 +16,6 @@ const builDeck = (): PositionedCard[] => {
         allCardsCopy.splice(n, 1);
         result.push({ ...card, zIndex: 1, top: 0, left: 0, isCentered: false });
     }
-
     return result;
 }
 
@@ -31,44 +30,45 @@ const initialGameState: Game = {
     allCards: []
 };
 
-
 export default (state: Game = initialGameState, action: any): Game => {
     switch (action.type) {
         case ADD_PLAYER:
             return { ...state, players: [...state.players, { id: action.id, name: action.name, cards: [], currentCard: null, isCurrentPlayer: action.isCurrentPlayer }] };
+
         case START_PLAYING:
             let cardsWithPlayers = shareCards(state);
-
+            let firstCardOnTable = { ...state.deck[0], top: 35, left: 50, isCentered: true, index: 0 };
+            debugger
             return {
-                ...state, currentCard: { ...state.deck[0], top: 35, left: 50, isCentered: true },
-                players: cardsWithPlayers.players, started: true, allCards: [...[{ ...state.deck[0], top: 35, left: 50, isCentered: true }], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
+                ...state, currentCard: firstCardOnTable,
+                players: cardsWithPlayers.players, started: true, allCards: [...[firstCardOnTable], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
             };
 
         case PLAYER_GUESS:
             if (state.currentCard.icons.map(i => i.id).includes(action.iconId)) {
-                let player = state.players.find(p => p.id == action.playerId)
+                let player = state.players.find(p => p.id == action.playerId);
                 let playerCard = player.cards[0];
                 let leftCardsForPlayer = player.cards.slice(1, player.cards.length);
                 let updatedPlayer: Player = { ...player, cards: leftCardsForPlayer };
-                let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id)
-                let winner = state.winner == null && leftCardsForPlayer.length == 0 ? player : null
-                let gameOver = updatedPlayers.every(p => p.cards.length == 0)
-                return { ...state, currentCard: { ...playerCard, zIndex: state.zIndex + 1 }, players: updatedPlayers, winner: winner, gameOver: gameOver, zIndex: state.zIndex + 1 }
+                let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id);
+                let winner = state.winner == null && leftCardsForPlayer.length == 0 ? player : null;
+                let gameOver = updatedPlayers.every(p => p.cards.length == 0);
+                return { ...state, currentCard: { ...playerCard, zIndex: state.zIndex + 1 }, players: updatedPlayers, winner: winner, gameOver: gameOver, zIndex: state.zIndex + 1 };
             }
             return state;
 
         case MOVE_CURRENT_CARD_TO_CENTER:
             let currentCard = state.currentCard;
-            let allCards = [...[{ ...currentCard, isCentered: true, zIndex: state.zIndex + 1 }], ...state.allCards.filter(c => c.id != currentCard.id)].sort(function (x, y) { return x.id < y.id ? -1 : 1 });
+            let allCards = [...state.allCards.filter(c => c.id < currentCard.id), ...[{ ...currentCard, isCentered: true, zIndex: state.zIndex + 1 }],
+            ...state.allCards.filter(c => c.id > currentCard.id)];
             return { ...state, allCards: allCards }
+
         default:
             return state;
     }
 };
 
-
 const shareCards = (state: Game): { players: Player[] } => {
-
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
 
     const gepTop: (isCurrentPlayer: Boolean) => number = function (isCurrentPlayer: boolean) {
@@ -85,7 +85,8 @@ const shareCards = (state: Game): { players: Player[] } => {
                 ...card,
                 zIndex: cardsByPlayer - index,
                 top: gepTop(isCurrentPlayer),
-                left: 50
+                left: 50,
+                index: index
             }
         });
     }
