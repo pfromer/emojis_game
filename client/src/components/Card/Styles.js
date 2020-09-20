@@ -5,11 +5,13 @@ import styled, { keyframes, css } from 'styled-components'
 const moveToCenter = keyframes`
   from {
     top: ${p => p.top + '%'};
+    transform: rotate(0deg)
   }
 
   to {
     top: 35%;
-    left: 50%;
+    left: calc(50vw - 15vh);
+    transform: rotate(40deg)
   }
 `;
 
@@ -23,11 +25,13 @@ export const StyledCard = styled.div`
     display: inline-block;
     position: absolute;
     top: ${p => p.top + '%'};
-    left: ${p => (p.left + p.index) + '%'};
+    left: ${p => 'calc(50vw - 15vh + ' + p.index + 'vw)'};
     z-index: ${p => p.zIndex};
 
     ${p => p.isCentered && css`
         animation: ${moveToCenter} 0.2s linear;
         animation-fill-mode: forwards;
     `}
+
+    
 `

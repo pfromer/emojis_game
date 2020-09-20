@@ -15,7 +15,7 @@ export function* computerPlay() {
 
     let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
-        yield call(delay, 100);
+        yield call(delay, 1000);
         let currentCard = yield select(currentCardSelector);
         let commonIcon = yield call(iconInCommon, currentCard, computerCard);
         yield put({
