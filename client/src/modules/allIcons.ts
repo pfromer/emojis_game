@@ -237,14 +237,14 @@ export const allIcons: Icon[] = [
         image: "🦄"
     },
     {
-        name: "langostintop",
+        name: "pepino",
         id: 58,
-        image: "🦐"
+        image: "🥒"
     },
     {
-        name: "langostintop",
+        name: "uvas",
         id: 58,
-        image: "🦐"
+        image: "🍇"
     },
     {
         name: "zombie",
@@ -258,6 +258,28 @@ export const allIcons: Icon[] = [
 /*
 
 verdes:
- pepino
- 🥒
+bicho_verde
+🐛
+
+dragon
+🐉
+
+🐅
+tigre
+
+guitarra
+🎸
+
+teatro
+🎭
+
+cerveza
+🍺
+
+chocolate
+🍫
+
+frutilla
+🍓
 */
+
