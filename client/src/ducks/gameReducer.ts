@@ -38,7 +38,6 @@ export default (state: Game = initialGameState, action: any): Game => {
         case START_PLAYING:
             let cardsWithPlayers = shareCards(state);
             let firstCardOnTable = { ...state.deck[0], top: 35, left: 50, isCentered: true, index: 0 };
-            debugger
             return {
                 ...state, currentCard: firstCardOnTable,
                 players: cardsWithPlayers.players, started: true, allCards: [...[firstCardOnTable], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
@@ -53,15 +52,12 @@ export default (state: Game = initialGameState, action: any): Game => {
                 let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id);
                 let winner = state.winner == null && leftCardsForPlayer.length == 0 ? player : null;
                 let gameOver = updatedPlayers.every(p => p.cards.length == 0);
-                return { ...state, currentCard: { ...playerCard, zIndex: state.zIndex + 1 }, players: updatedPlayers, winner: winner, gameOver: gameOver, zIndex: state.zIndex + 1 };
+                let currentCard = { ...playerCard, zIndex: state.zIndex + 1, isCentered: true }
+                let allCards = [...state.allCards.filter(c => c.id < currentCard.id), ...[{ ...currentCard, isCentered: true, zIndex: state.zIndex + 1 }],
+                ...state.allCards.filter(c => c.id > currentCard.id)];
+                return { ...state, currentCard: currentCard, players: updatedPlayers, winner: winner, gameOver: gameOver, zIndex: state.zIndex + 1, allCards: allCards };
             }
             return state;
-
-        case MOVE_CURRENT_CARD_TO_CENTER:
-            let currentCard = state.currentCard;
-            let allCards = [...state.allCards.filter(c => c.id < currentCard.id), ...[{ ...currentCard, isCentered: true, zIndex: state.zIndex + 1 }],
-            ...state.allCards.filter(c => c.id > currentCard.id)];
-            return { ...state, allCards: allCards }
 
         default:
             return state;
