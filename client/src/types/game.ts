@@ -14,7 +14,10 @@ export interface PositionedCard extends Card {
     left: number,
     zIndex: number,
     isCentered: boolean,
-    index: number
+    index: number,
+    moveToEnd: boolean,
+    moveToToPlayerCards: boolean,
+    initialPosition: boolean
 }
 
 
