@@ -24,9 +24,9 @@ export const allIcons: Icon[] = [
         id: 4,
         image: "🎃"
     }, {
-        name: "fuego",
+        name: "bicho_verde",
         id: 5,
-        image: "🔥"
+        image: "🐛"
     }, {
         name: "risa",
         id: 6,
