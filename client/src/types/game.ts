@@ -39,25 +39,3 @@ export type Game = {
     zIndex: number,
     allCards: PositionedCard[]
 }
-
-/*
-export class Player {
-    id: number;
-    name: string;
-    cards: Card[];
-    currentCard: Card | null
-
-    constructor(_name: string, _id: number) {
-        this.name = _name;
-        this.id = _id;
-        this.cards = new Array();
-    }
-
-
-
-
-
-
-
-
-}*/

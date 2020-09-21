@@ -21,8 +21,8 @@ const moveToEnd = keyframes`
 
 const moveToToPlayerCards = keyframes`
   from {
-    top: 35%;
-    left: calc(50vw - 15vh);
+    top: 100vh;
+      left: 100vw;
   }
 
   to {
@@ -42,8 +42,8 @@ export const StyledCard = styled.div`
     position: absolute;
 
     ${p => p.initialPosition && css`
-      top: 35%;
-      left: calc(50vw - 15vh);
+      top: 100vh;
+      left: 100vw;
     `}
 
     ${p => !p.initialPosition && css`
@@ -64,7 +64,7 @@ export const StyledCard = styled.div`
     `}
 
     ${p => p.moveToToPlayerCards && css`
-      animation: ${moveToToPlayerCards} 0.20s linear;
+      animation: ${moveToToPlayerCards} 0.40s ease;
       animation-fill-mode: forwards;
     `}
 

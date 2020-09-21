@@ -60,8 +60,8 @@ export default (state: Game = initialGameState, action: any): Game => {
                 let currentCard = { ...playerCard, zIndex: state.zIndex + 1, isCentered: true, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false }
 
 
-                let allCards = [...state.allCards.filter(c => c.id < currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index - 1, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : c), ...[currentCard],
-                ...state.allCards.filter(c => c.id > currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index - 1, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : c)];
+                let allCards = [...state.allCards.filter(c => c.id < currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index - 1, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : { ...c, initialPosition: false, moveToToPlayerCards: false }), ...[currentCard],
+                ...state.allCards.filter(c => c.id > currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index - 1, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : { ...c, initialPosition: false, moveToToPlayerCards: false })];
 
 
 
