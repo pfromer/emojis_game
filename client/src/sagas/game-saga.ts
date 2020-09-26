@@ -5,14 +5,8 @@ import { allCards } from '../modules/allCards';
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 export function* computerPlay() {
-    yield put({
-        type: 'ADD_PLAYER',
-        id: 2,
-        name: "computer",
-        isCurrentPlayer: false
-    });
 
-    yield put({ type: 'START_PLAYING' });
+
 
     let allCards = yield select(allCardsSelector);
 

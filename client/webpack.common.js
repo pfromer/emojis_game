@@ -1,18 +1,24 @@
 const path = require('path');
-const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './index.js',
+    entry: {
+        app: './index.js',
+    },
+    plugins: [
+        // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Production',
+        }),
+    ],
     output: { //common aunque no lo reemplaze
         path: path.resolve(__dirname, 'bundle'),
         filename: 'bundle.js',
         publicPath: '/public'
     },
-    devServer: { //va al dev
-        historyApiFallback: true,
-        contentBase: path.resolve(__dirname, '')
-    },
-    module: { //commoin
+    module: {
         rules: [
             {
                 test: /\.tsx?$/,
@@ -34,6 +40,5 @@ module.exports = {
         ]
 
     },
-    resolve: { extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'] } //common
-
+    resolve: { extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'] }
 };

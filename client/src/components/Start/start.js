@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const Start = (props) => {
 
-    const { playerSubmited, gameStarted } = props;
+    /*const { playerSubmited, gameStarted } = props;
 
     const dispatch = useDispatch()
     const [name, setName] = useState('');
@@ -27,24 +27,16 @@ const Start = (props) => {
         dispatch({
             type: 'START_PLAYING_ASYNC'
         })
-    };
+    };*/
+
+    const dispatch = useDispatch()
+    dispatch({
+        type: 'START_PLAYING_ASYNC'
+    })
 
     return (
         <div>
-            {!playerSubmited &&
-                <form>
-                    <h1>Hello</h1>
-                    <p>Enter your name:</p>
-                    <input
-                        type="text"
-                        onChange={onChangeHandler}
-                    />
-                    <button onClick={onClickHandler}>Submit</button>
-                </form>
-            }
-            {!gameStarted && playerSubmited &&
-                <button onClick={onStartPlayingClickHandler}>Start Playing!</button>
-            }
+
         </div>
 
     );

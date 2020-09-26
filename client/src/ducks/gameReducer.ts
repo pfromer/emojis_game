@@ -8,6 +8,37 @@ const MOVE_TO_END = 'MOVE_TO_END';
 const POSITION_OTHER_CARDS = 'POSITION_OTHER_CARDS';
 const MOVE_TO_PLAYER_CARDS = 'MOVE_TO_PLAYER_CARDS';
 
+
+const shareCards = (state: Game): { players: Player[] } => {
+    let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
+
+    const gepTop: (isCurrentPlayer: Boolean) => number = function (isCurrentPlayer: boolean) {
+
+        if (isCurrentPlayer) {
+            return 68
+        }
+        return 0;
+    }
+
+    const getNextCards = (indexStart: number, isCurrentPlayer: Boolean): PositionedCard[] => {
+        return state.deck.slice(1, state.deck.length).slice(indexStart * cardsByPlayer, (indexStart + 1) * cardsByPlayer).map(function (card, index) {
+            return {
+                ...card,
+                zIndex: cardsByPlayer - index,
+                top: gepTop(isCurrentPlayer),
+                left: 50,
+                index: index
+            }
+        });
+    }
+
+    let newPlayers = [...state.players].map((player, index) => {
+        return { ...player, cards: getNextCards(index, player.isCurrentPlayer) }
+    });
+
+    return { players: newPlayers };
+};
+
 const builDeck = (): PositionedCard[] => {
     let result = [];
     let allCardsCopy = allCards.slice();
@@ -21,29 +52,46 @@ const builDeck = (): PositionedCard[] => {
     return result;
 }
 
-const initialGameState: Game = {
-    players: [],
-    deck: builDeck(),
-    currentCard: null,
-    winner: null,
-    gameOver: false,
-    started: false,
-    zIndex: 56,
-    allCards: []
-};
+const initalGame = (): Game => {
+
+    let state = {
+        players: [{
+            id: 1,
+            name: 'yo',
+            isCurrentPlayer: true,
+            cards: [],
+            currentCard: null
+        }, {
+            id: 2,
+            name: 'computer',
+            isCurrentPlayer: false,
+            cards: [],
+            currentCard: null
+
+        }
+        ],
+        deck: builDeck(),
+        currentCard: null,
+        winner: null,
+        gameOver: false,
+        started: false,
+        zIndex: 56,
+        allCards: []
+    }
+
+    let cardsWithPlayers = shareCards(state);
+    let firstCardOnTable = { ...state.deck[0], top: 35, left: 50, isCentered: true, index: 0, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false };
+    return {
+        ...state, currentCard: firstCardOnTable, started: true,
+        players: cardsWithPlayers.players, allCards: [...[firstCardOnTable], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
+    };
+}
+
+const initialGameState: Game = initalGame()
 
 export default (state: Game = initialGameState, action: any): Game => {
     switch (action.type) {
-        case ADD_PLAYER:
-            return { ...state, players: [...state.players, { id: action.id, name: action.name, cards: [], currentCard: null, isCurrentPlayer: action.isCurrentPlayer }] };
 
-        case START_PLAYING:
-            let cardsWithPlayers = shareCards(state);
-            let firstCardOnTable = { ...state.deck[0], top: 35, left: 50, isCentered: true, index: 0, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false };
-            return {
-                ...state, currentCard: firstCardOnTable, started: true,
-                players: cardsWithPlayers.players, allCards: [...[firstCardOnTable], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
-            };
 
         case PLAYER_GUESS:
             let player = state.players.find(p => p.id == action.playerId);
@@ -97,35 +145,4 @@ export default (state: Game = initialGameState, action: any): Game => {
         default:
             return state;
     }
-};
-
-
-const shareCards = (state: Game): { players: Player[] } => {
-    let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
-
-    const gepTop: (isCurrentPlayer: Boolean) => number = function (isCurrentPlayer: boolean) {
-
-        if (isCurrentPlayer) {
-            return 68
-        }
-        return 0;
-    }
-
-    const getNextCards = (indexStart: number, isCurrentPlayer: Boolean): PositionedCard[] => {
-        return state.deck.slice(1, state.deck.length).slice(indexStart * cardsByPlayer, (indexStart + 1) * cardsByPlayer).map(function (card, index) {
-            return {
-                ...card,
-                zIndex: cardsByPlayer - index,
-                top: gepTop(isCurrentPlayer),
-                left: 50,
-                index: index
-            }
-        });
-    }
-
-    let newPlayers = [...state.players].map((player, index) => {
-        return { ...player, cards: getNextCards(index, player.isCurrentPlayer) }
-    });
-
-    return { players: newPlayers };
 };
