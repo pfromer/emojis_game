@@ -1,3 +1,4 @@
+/*
 import * as io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { take, call, put, fork, race, cancelled, delay } from 'redux-saga/effects';
@@ -89,7 +90,7 @@ const createSocketChannel = socket => eventChannel((emit) => {
   //se tiene que "emitir" esa tarea en este canal
   socket.on('newTask', handler);
 
-  //ver la documentacion de eventChannel. la funcion subscriptora debe 
+  //ver la documentacion de eventChannel. la funcion subscriptora debe
   //devolver una funcion que haga que el canal no esuche mas al evento "newTask"
   return () => {
     socket.off('newTask', handler);
@@ -100,7 +101,7 @@ const createSocketChannel = socket => eventChannel((emit) => {
 const listenDisconnectSaga = function* () {
   while (true) {
     yield call(disconnect);
-    //entender que esta linea se va a ejecutar solo cuando resuelva la 
+    //entender que esta linea se va a ejecutar solo cuando resuelva la
     //promise del disconet, es decir solo cuando el socket se desconecte
     yield put({ type: SERVER_OFF });
   }
@@ -109,7 +110,7 @@ const listenDisconnectSaga = function* () {
 const listenConnectSaga = function* () {
   while (true) {
     yield call(reconnect);
-    //entender que esta linea se va a ejecutar solo cuando resuelva la 
+    //entender que esta linea se va a ejecutar solo cuando resuelva la
     //promise del reconnect, es decir solo cuando el socket conecte
     yield put({ type: SERVER_ON });
   }
@@ -133,7 +134,7 @@ const listenServerSaga = function* () {
     //hay algo que no entiendo. que pasa si el server esta up y justo despues de que gano el conected
     //el server pasa a estar down?
 
-    //call connect devuelve una promise que se resuelve cuando 
+    //call connect devuelve una promise que se resuelve cuando
     //el socke se conecta. el middleware es el encargado de esperar a que la promise
     //resuelva y dejar en la variable socket el socket
     const socket = yield call(connect);
@@ -177,3 +178,4 @@ export const startStopChannel = function* () {
     });
   }
 };
+*/

@@ -1,4 +1,4 @@
-import { Game, Card, Icon, Player, PositionedCard } from '../types/game';
+import { Game, Player, PositionedCard } from '../types/game';
 import { allCards } from '../modules/allCards';
 
 const ADD_PLAYER = 'ADD_PLAYER';
@@ -108,8 +108,8 @@ export default (state: Game = initialGameState, action: any): Game => {
                 let currentCard = { ...playerCard, zIndex: state.zIndex + 1, isCentered: true, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false }
 
 
-                let allCards = [...state.allCards.filter(c => c.id < currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index - 1, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : { ...c, initialPosition: false, moveToToPlayerCards: false }), ...[currentCard],
-                ...state.allCards.filter(c => c.id > currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index - 1, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : { ...c, initialPosition: false, moveToToPlayerCards: false })];
+                let allCards = [...state.allCards.filter(c => c.id < currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : { ...c, initialPosition: false, moveToToPlayerCards: false }), ...[currentCard],
+                ...state.allCards.filter(c => c.id > currentCard.id).map(c => updatedPlayer.cards.some(c2 => c2.id == c.id) ? { ...c, index: c.index, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false } : { ...c, initialPosition: false, moveToToPlayerCards: false })];
 
 
 
@@ -122,12 +122,13 @@ export default (state: Game = initialGameState, action: any): Game => {
 
         case MOVE_TO_END:
             //cardId
-            let allCards = state.allCards.map(c => c.id == action.cardId ? { ...c, moveToEnd: true, moveToToPlayerCards: false, initialPosition: false, index: state.players.find(p => p.id == action.playerId).cards.length } : { ...c, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false });
-            return { ...state, allCards: allCards };
+            //let allCards = state.allCards.map(c => c.id == action.cardId ? { ...c, moveToEnd: true, moveToToPlayerCards: false, initialPosition: false, index: state.players.find(p => p.id == action.playerId).cards.length } : { ...c, moveToEnd: false, moveToToPlayerCards: false, initialPosition: false });
+            //return { ...state, allCards: allCards };
+            return state;
 
         case POSITION_OTHER_CARDS:
             //playerid
-            let _player = state.players.find(p => p.id == action.playerId);
+            /*let _player = state.players.find(p => p.id == action.playerId);
             let updatedPlayerCards = _player.cards.slice(1, _player.cards.length).concat([_player.cards[0]]).map(function (card, index) { return { ...card, index: index, zIndex: 56 - index }; });
             let updatedPlayer: Player = { ..._player, cards: updatedPlayerCards };
             let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id);
@@ -137,7 +138,8 @@ export default (state: Game = initialGameState, action: any): Game => {
                 return { ...result, moveToEnd: false, initialPosition: false };
             });
 
-            return { ...state, players: updatedPlayers, allCards: _allCards };
+            return { ...state, players: updatedPlayers, allCards: _allCards };*/
+            return state;
 
         case MOVE_TO_PLAYER_CARDS:
             let _allCards2 = state.allCards.map(c => c.id == action.cardId ? { ...c, moveToToPlayerCards: true, initialPosition: false } : c);

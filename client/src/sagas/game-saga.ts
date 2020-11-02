@@ -1,6 +1,5 @@
 import { put, call, select, takeLatest } from 'redux-saga/effects'
 import { Card, Icon } from '../types/game';
-import { allCards } from '../modules/allCards';
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
@@ -19,7 +18,7 @@ export function* computerPlay() {
 
     let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
-        yield call(delay, 8000);
+        yield call(delay, 20000);
         let currentCard = yield select(currentCardSelector);
         let commonIcon = yield call(iconInCommon, currentCard, computerCard);
         yield put({
