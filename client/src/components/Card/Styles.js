@@ -1,25 +1,24 @@
 import styled, { keyframes, css } from 'styled-components'
 
-const moveToCenter = keyframes`
-  from {
-    top: ${p => p.top + '%'};
-    left: calc(50vw - 15vh);
-    transform: rotate(0deg)
-  }
+function moveOponentCardToCenter(index) {
+  const animation = keyframes`
+    to {
+      transform: translate(-${index}vw, 35vh)  rotate(40deg);
+    }
+  `;
+  return animation;
+}
 
-  to {
-    top: 35%;
-    left: calc(50vw - 15vh);
-    transform: rotate(40deg)
-  }
-`;
+function moveCurrentPlayerCardToCenter(index) {
+  const animation = keyframes`
+    to {
+      transform: translate(-${index}vw, -33vh)  rotate(40deg);
+    }
+  `;
+  return animation;
+}
 
-const moveToEnd = keyframes`
-  0%  {left: calc(50vw - 40vh); z-index: 58;}
-  100% {left: ${p => 'calc(50vw - 15vh + ' + p.index + 'vw)'}; z-index: 0;}
-`;
-
-const moveToToPlayerCards = keyframes`
+const shareCard = keyframes`
   from {
     top: 100vh;
       left: 100vw;
@@ -53,22 +52,18 @@ export const StyledCard = styled.div`
 
     z-index: ${p => p.zIndex};
 
-    ${p => p.isCentered && css`
-        animation: ${moveToCenter} 0.4s linear;
-        animation-fill-mode: forwards;
-    `}
-
-    ${p => p.moveToEnd && css`
-        animation: ${moveToEnd} 0.7s linear;
-        animation-fill-mode: forwards;
-    `}
-
-    ${p => p.moveToToPlayerCards && css`
-      animation: ${moveToToPlayerCards} 0.40s ease;
+    ${p => p.isCentered && p.top == 0 && css`
+      animation: ${moveOponentCardToCenter(p.index)} 0.50s linear;
       animation-fill-mode: forwards;
     `}
 
+    ${p => p.isCentered && p.top == 68 && css`
+      animation: ${moveCurrentPlayerCardToCenter(p.index)} 0.50s linear;
+      animation-fill-mode: forwards;
+    `}
 
-
-    
+    ${p => p.shareCard && css`
+      animation: ${shareCard} 0.40s ease;
+      animation-fill-mode: forwards;
+    `}
 `

@@ -5,20 +5,16 @@ const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 export function* computerPlay() {
 
-
-
     let allCards = yield select(allCardsSelector);
 
     for (let i = 0; i < allCards.length; i++) {
-        yield put({ type: 'MOVE_TO_PLAYER_CARDS', cardId: allCards[i].id });
+        yield put({ type: 'SHARE_CARD', cardId: allCards[i].id });
         yield call(delay, 10);
-
     }
-
 
     let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
-        yield call(delay, 20000);
+        yield call(delay, 1000);
         let currentCard = yield select(currentCardSelector);
         let commonIcon = yield call(iconInCommon, currentCard, computerCard);
         yield put({
@@ -37,19 +33,6 @@ export function* play(action) {
         playerId: action.playerId,
         isCurrentPlayer: action.isCurrentPlayer
     });
-    let currentCard = yield select(currentCardSelector);
-    if (currentCard.id != action.cardId) {
-        yield put({
-            type: 'MOVE_TO_END',
-            cardId: action.cardId,
-            playerId: action.playerId
-        })
-        yield call(delay, 1000);
-        yield put({
-            type: 'POSITION_OTHER_CARDS',
-            playerId: action.playerId
-        })
-    }
 }
 
 export function* watchStartPlaying() {

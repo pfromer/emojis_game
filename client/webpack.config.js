@@ -34,6 +34,11 @@ module.exports = {
         ]
 
     },
-    resolve: { extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'] } //common
+    resolve: { extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'] }, //common
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
 
 };

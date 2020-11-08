@@ -30,7 +30,7 @@ const Table = (props) => {
 
 const mapStateToProps = state => ({
   allCards: state.gameReducer.allCards,
-  gameStarted: state.gameReducer.started,
+  gameStarted: state.gameReducer.started
 });
 
 export default connect(mapStateToProps)(Table);
