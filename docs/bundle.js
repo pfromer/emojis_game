@@ -77,7 +77,7 @@ object-assign
     ${e=>{return e.isCentered&&0==e.top&&X.css`
     animation: ${t=e.index,X.keyframes`
     to {
-      transform: translate(-${t}px, 600px)  rotate(40deg);
+      transform: translate(-${t}vw, 35vh)  rotate(40deg);
     }
   `} 0.40s ease;
     animation-fill-mode: forwards;
@@ -86,7 +86,7 @@ object-assign
     ${e=>{return e.isCentered&&68==e.top&&X.css`
     animation: ${t=e.index,X.keyframes`
     to {
-      transform: translate(-${t}px, -400px)  rotate(40deg);
+      transform: translate(-${t}vw, -35vh)  rotate(40deg);
     }
   `} 0.40s ease;
     animation-fill-mode: forwards;
@@ -102,7 +102,7 @@ object-assign
 
 
     
-`;var ee=n(20);const te=e=>{const{icon:t,index:n,clickable:r,cardId:a}=e,i=K();return o.a.createElement(ee.StyledIcon,{i:n,layout:0,onClick:()=>{r&&i({type:"PLAYER_GUESS_ASYNC_2",iconId:t.id,playerId:1,cardId:a})}},t.image)},ne=e=>{const{card:t,cardWidth:n,clickable:r,top:a,bottom:i,zIndex:l}=e;return o.a.createElement(J,{cardWidth:n,zIndex:t.zIndex,top:t.top,left:t.left,isCentered:t.isCentered,index:t.index,moveToEnd:t.moveToEnd,initialPosition:t.initialPosition,moveToToPlayerCards:t.moveToToPlayerCards},t.icons.map((e,n)=>o.a.createElement(te,{key:n,cardId:t.id,index:n,icon:e,clickable:r,top:a,bottom:i,zIndex:l})))},re=X.default.div`
+`;var ee=n(20);const te=e=>{const{icon:t,index:n,clickable:r,cardId:a}=e,i=K();return o.a.createElement(ee.StyledIcon,{i:n,layout:0,onClick:()=>{r&&i({type:"PLAYER_GUESS_ASYNC_2",iconId:t.id,playerId:1,cardId:a})}},t.id)},ne=e=>{const{card:t,cardWidth:n,clickable:r,top:a,bottom:i,zIndex:l}=e;return o.a.createElement(J,{cardWidth:n,zIndex:t.zIndex,top:t.top,left:t.left,isCentered:t.isCentered,index:t.index,moveToEnd:t.moveToEnd,initialPosition:t.initialPosition,moveToToPlayerCards:t.moveToToPlayerCards},t.icons.map((e,n)=>o.a.createElement(te,{key:n,cardId:t.id,index:n,icon:e,clickable:r,top:a,bottom:i,zIndex:l})))},re=X.default.div`
     position: relative;
     height: 100vh;
 `,oe=(X.default.div`
