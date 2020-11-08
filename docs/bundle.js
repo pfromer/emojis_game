@@ -79,7 +79,7 @@ object-assign
     to {
       transform: translate(-${t}vw, 35vh)  rotate(40deg);
     }
-  `} 0.40s ease;
+  `} 0.50s linear;
     animation-fill-mode: forwards;
     `;var t}}
 
@@ -88,7 +88,7 @@ object-assign
     to {
       transform: translate(-${t}vw, -35vh)  rotate(40deg);
     }
-  `} 0.40s ease;
+  `} 0.50s linear;
     animation-fill-mode: forwards;
     `;var t}}
 
