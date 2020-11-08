@@ -77,7 +77,7 @@ object-assign
     ${e=>{return e.isCentered&&0==e.top&&X.css`
     animation: ${t=e.index,X.keyframes`
     to {
-      transform: translate(-${t}vw, 35vh)  rotate(40deg);
+      transform: translate(-${t}px, 600px)  rotate(40deg);
     }
   `} 0.40s ease;
     animation-fill-mode: forwards;
@@ -86,7 +86,7 @@ object-assign
     ${e=>{return e.isCentered&&68==e.top&&X.css`
     animation: ${t=e.index,X.keyframes`
     to {
-      transform: translate(-${t}vw, -35vh)  rotate(40deg);
+      transform: translate(-${t}px, -400px)  rotate(40deg);
     }
   `} 0.40s ease;
     animation-fill-mode: forwards;
