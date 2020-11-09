@@ -12,7 +12,11 @@ export function* computerPlay() {
         yield call(delay, 10);
     }
 
-    let computerCard = yield select(computerCardSelector);
+    yield put({ type: 'START_CHANNEL' });
+
+
+
+    /*let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
         yield call(delay, 1000);
         let currentCard = yield select(currentCardSelector);
@@ -23,7 +27,7 @@ export function* computerPlay() {
             playerId: 2
         })
         computerCard = yield select(computerCardSelector);
-    }
+    }*/
 }
 
 export function* play(action) {

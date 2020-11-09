@@ -21,9 +21,8 @@ function moveCurrentPlayerCardToCenter(index) {
 const shareCard = keyframes`
   from {
     top: 100vh;
-      left: 100vw;
+    left: 100vw;
   }
-
   to {
     top: ${p => p.top + '%'};
     left: ${p => 'calc(50vw - 15vh + ' + p.index + 'vw)'};

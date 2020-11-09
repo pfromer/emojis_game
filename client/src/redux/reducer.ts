@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-//import taskReducer from '../ducks/task';
+import socketReducer from '../ducks/socketReducer';
 import gameReducer from '../ducks/gameReducer';
 
 const rootReducer = combineReducers({
-  //taskReducer,
+  socketReducer,
   gameReducer
 });
 

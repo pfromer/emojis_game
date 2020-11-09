@@ -1,10 +1,9 @@
-/*
+
 import * as io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { take, call, put, fork, race, cancelled, delay } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 
-const ADD_TASK = 'ADD_TASK';
 const START_CHANNEL = 'START_CHANNEL';
 const STOP_CHANNEL = 'STOP_CHANNEL';
 const CHANNEL_ON = 'CHANNEL_ON';
@@ -15,21 +14,16 @@ const SERVER_OFF = 'SERVER_OFF';
 const socketServerURL = 'http://localhost:3000';
 
 const initialState = {
-  taskList: [],
   channelStatus: 'off',
   serverStatus: 'unknown',
 };
 
 export default (state = initialState, action) => {
-  const { taskList } = state;
-  const updatedTaskList = [...taskList, action.payload];
   switch (action.type) {
     case CHANNEL_ON:
       return { ...state, channelStatus: 'on' };
     case CHANNEL_OFF:
       return { ...state, channelStatus: 'off', serverStatus: 'unknown' };
-    case ADD_TASK:
-      return { ...state, taskList: updatedTaskList };
     case SERVER_OFF:
       return { ...state, serverStatus: 'off' };
     case SERVER_ON:
@@ -88,12 +82,12 @@ const createSocketChannel = socket => eventChannel((emit) => {
 
   //decimos que cada vez que al socket le llegue un "newTask"
   //se tiene que "emitir" esa tarea en este canal
-  socket.on('newTask', handler);
+  socket.on('oponentPlay', handler);
 
   //ver la documentacion de eventChannel. la funcion subscriptora debe
   //devolver una funcion que haga que el canal no esuche mas al evento "newTask"
   return () => {
-    socket.off('newTask', handler);
+    socket.off('oponentPlay', handler);
   };
 });
 
@@ -135,7 +129,7 @@ const listenServerSaga = function* () {
     //el server pasa a estar down?
 
     //call connect devuelve una promise que se resuelve cuando
-    //el socke se conecta. el middleware es el encargado de esperar a que la promise
+    //el socket se conecta. el middleware es el encargado de esperar a que la promise
     //resuelva y dejar en la variable socket el socket
     const socket = yield call(connect);
 
@@ -156,7 +150,8 @@ const listenServerSaga = function* () {
       //escuchamos todo el tiempo las tareas que se emiten por el canal
       const payload = yield take(socketChannel);
       //enviamos las tareas al reducer
-      yield put({ type: ADD_TASK, payload });
+      console.log("player_guessed", payload);
+      yield put({ type: 'PLAYER_GUESS', playerId: payload.playerId, iconId: payload.iconId, isCurrentPlayer: payload.isCurrentPlayer });
     }
   } catch (error) {
     console.log(error);
@@ -178,4 +173,3 @@ export const startStopChannel = function* () {
     });
   }
 };
-*/
