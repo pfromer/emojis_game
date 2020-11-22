@@ -3,8 +3,16 @@ import { Card, Icon } from '../types/game';
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export function* computerPlay() {
 
+    yield put({ type: 'START_PLAYING' });
     let allCards = yield select(allCardsSelector);
 
     for (let i = 0; i < allCards.length; i++) {
@@ -12,13 +20,11 @@ export function* computerPlay() {
         yield call(delay, 10);
     }
 
-    yield put({ type: 'START_CHANNEL' });
+    //yield put({ type: 'START_CHANNEL' });
 
-
-
-    /*let computerCard = yield select(computerCardSelector);
+    let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
-        yield call(delay, 1000);
+        yield call(delay, getRandomInt(2000, 8000));
         let currentCard = yield select(currentCardSelector);
         let commonIcon = yield call(iconInCommon, currentCard, computerCard);
         yield put({
@@ -27,7 +33,7 @@ export function* computerPlay() {
             playerId: 2
         })
         computerCard = yield select(computerCardSelector);
-    }*/
+    }
 }
 
 export function* play(action) {
@@ -40,7 +46,7 @@ export function* play(action) {
 }
 
 export function* watchStartPlaying() {
-    yield takeLatest('START_PLAYING_ASYNC', computerPlay)
+    yield takeLatest('START_PLAYING_ALONE_SAGA', computerPlay)
 }
 
 export function* watchPlayerGuess() {

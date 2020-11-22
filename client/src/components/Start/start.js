@@ -14,7 +14,7 @@ const Start = (props) => {
         setName(event.target.value);
     };
 
-    const onClickHandler = () => {
+    const onPlayAloneClickHandler = () => {
         dispatch({
             type: 'ADD_PLAYER',
             id: 1,
@@ -30,15 +30,31 @@ const Start = (props) => {
     };*/
 
     const dispatch = useDispatch()
-    dispatch({
-        type: 'START_PLAYING_ASYNC'
-    })
+
+    const onPlayAloneClickHandler = () => {
+        dispatch({
+            type: 'ADD_PLAYER',
+            id: 1,
+            name: 'YOU',
+            isCurrentPlayer: true
+        })
+        dispatch({
+            type: 'ADD_PLAYER',
+            id: 2,
+            name: 'COMPUTER',
+            isCurrentPlayer: false
+        })
+
+        dispatch({
+            type: 'START_PLAYING_ALONE_SAGA'
+        })
+
+    };
 
     return (
         <div>
-            <button>Jugar Solo</button>
+            <button onClick={onPlayAloneClickHandler} >Jugar Solo</button>
             <button>Jugar contra alguien</button>
-
         </div>
 
     );

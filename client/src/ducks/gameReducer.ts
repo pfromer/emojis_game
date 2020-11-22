@@ -3,6 +3,8 @@ import { allCards } from '../modules/allCards';
 
 const PLAYER_GUESS = 'PLAYER_GUESS';
 const SHARE_CARD = 'SHARE_CARD';
+const ADD_PLAYER = 'ADD_PLAYER';
+const START_PLAYING = 'START_PLAYING'
 
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
@@ -43,46 +45,34 @@ const defaultSettingsCard = (card: PositionedCard): PositionedCard => {
 }
 
 const initalGame = (): Game => {
-    let state = {
-        players: [{
-            id: 1,
-            name: 'yo',
-            isCurrentPlayer: true,
-            cards: [],
-            currentCard: null
-        }, {
-            id: 2,
-            name: 'computer',
-            isCurrentPlayer: false,
-            cards: [],
-            currentCard: null
-        }
-        ],
+    return {
+        players: [],
         deck: builDeck(),
         currentCard: null,
+        started: false,
         winner: null,
         gameOver: false,
-        started: false,
         zIndex: 56,
         allCards: [],
         playersCount: null
     }
-
-    let cardsWithPlayers = shareCards(state);
-    let firstCardOnTable = defaultSettingsCard({ ...state.deck[0], belongsToCurrentPlayer: null, left: 50, isCentered: true, index: 0 });
-    return {
-        ...state,
-        currentCard: firstCardOnTable,
-        started: true,
-        players: cardsWithPlayers.players,
-        allCards: [...[firstCardOnTable], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
-    };
 }
 
 const initialGameState: Game = initalGame()
 
 export default (state: Game = initialGameState, action: any): Game => {
     switch (action.type) {
+        case START_PLAYING:
+            let cardsWithPlayers = shareCards(state);
+            let firstCardOnTable = defaultSettingsCard({ ...state.deck[0], belongsToCurrentPlayer: null, left: 50, isCentered: true, index: 0 });
+            return {
+                ...state,
+                currentCard: firstCardOnTable,
+                started: true,
+                players: cardsWithPlayers.players,
+                allCards: [...[firstCardOnTable], ...cardsWithPlayers.players[0].cards, ...cardsWithPlayers.players[1].cards].sort(function (x, y) { return x.id < y.id ? -1 : 1 })
+            };
+
         case PLAYER_GUESS:
             let player = state.players.find(p => p.id == action.playerId);
             let playerCard = player.cards[0];
@@ -104,6 +94,13 @@ export default (state: Game = initialGameState, action: any): Game => {
         case SHARE_CARD:
             let _allCards2 = state.allCards.map(c => c.id == action.cardId ? { ...c, shareCard: true, initialPosition: false } : c);
             return { ...state, allCards: _allCards2 };
+        case ADD_PLAYER:
+            let updatedPlayers = [...state.players, { id: action.id, name: action.name, cards: [], currentCard: null, isCurrentPlayer: action.isCurrentPlayer }]
+            return {
+                ...state,
+                players: updatedPlayers
+            }
+
         default:
             return state;
     }
