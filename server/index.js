@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
             iconId++;
         }
         console.log('socket emited. icon id:', iconId);
-    }, 2000
+    }, 800
     )
 
 });

@@ -36,6 +36,8 @@ const Start = (props) => {
 
     return (
         <div>
+            <button>Jugar Solo</button>
+            <button>Jugar contra alguien</button>
 
         </div>
 

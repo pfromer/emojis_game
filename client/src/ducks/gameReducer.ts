@@ -7,19 +7,12 @@ const SHARE_CARD = 'SHARE_CARD';
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
 
-    const gepTop: (isCurrentPlayer: Boolean) => number = function (isCurrentPlayer: boolean) {
-        if (isCurrentPlayer) {
-            return 68; //TODO modificar esto en vez de devolver top devolver el player al que pertenece la carta y que el styled component sepa posicionarla
-        }
-        return 0;
-    }
-
-    const getNextCards = (indexStart: number, isCurrentPlayer: Boolean): PositionedCard[] => {
+    const getNextCards = (indexStart: number, isCurrentPlayer: boolean): PositionedCard[] => {
         return state.deck.slice(1, state.deck.length).slice(indexStart * cardsByPlayer, (indexStart + 1) * cardsByPlayer).map(function (card, index) {
             return {
                 ...card,
                 zIndex: cardsByPlayer - index,
-                top: gepTop(isCurrentPlayer),
+                belongsToCurrentPlayer: isCurrentPlayer,
                 index: index
             }
         });
@@ -71,11 +64,12 @@ const initalGame = (): Game => {
         gameOver: false,
         started: false,
         zIndex: 56,
-        allCards: []
+        allCards: [],
+        playersCount: null
     }
 
     let cardsWithPlayers = shareCards(state);
-    let firstCardOnTable = defaultSettingsCard({ ...state.deck[0], top: 35, left: 50, isCentered: true, index: 0 });
+    let firstCardOnTable = defaultSettingsCard({ ...state.deck[0], belongsToCurrentPlayer: null, left: 50, isCentered: true, index: 0 });
     return {
         ...state,
         currentCard: firstCardOnTable,

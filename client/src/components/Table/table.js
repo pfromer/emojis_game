@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '../Card/Card';
-import { Container, CurrentPlayer, CurrentCard, ComputerPlayer } from './Styles'
-import { useDispatch } from 'react-redux'
+import { Container } from './Styles'
 
 const cardWidth = {
   currentPlayer: '30vh',
@@ -12,8 +11,6 @@ const cardWidth = {
 
 const Table = (props) => {
   const { gameStarted, allCards } = props;
-
-
 
   return (
     <Container>

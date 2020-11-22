@@ -10,7 +10,7 @@ export type Card = {
 }
 
 export interface PositionedCard extends Card {
-    top: number,
+    belongsToCurrentPlayer: boolean | null,
     left: number,
     zIndex: number,
     isCentered: boolean,
@@ -24,7 +24,7 @@ export type Player = {
     name: string
     cards: PositionedCard[]
     currentCard: Card | null
-    isCurrentPlayer: Boolean
+    isCurrentPlayer: boolean
 }
 
 export type Game = {
@@ -35,5 +35,6 @@ export type Game = {
     gameOver: boolean,
     started: boolean,
     zIndex: number,
-    allCards: PositionedCard[]
+    allCards: PositionedCard[],
+    playersCount: number | null
 }
