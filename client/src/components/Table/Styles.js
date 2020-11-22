@@ -24,3 +24,16 @@ export const ComputerPlayer = styled.div`
     margin: auto;
     text-align: center;
 `
+
+
+export const MainPlayerLabel = styled.label`
+    position: absolute;
+    top: 80vh;
+    left: calc(40vw - 15vh);
+`
+
+export const OponentPlayerLabel = styled.label`
+    position: absolute;
+    top: 10vh;
+    left: calc(40vw - 15vh);
+`

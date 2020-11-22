@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '../Card/Card';
-import { Container } from './Styles'
+import { Container, OponentPlayerLabel, MainPlayerLabel } from './Styles'
 
 const cardWidth = {
   currentPlayer: '30vh',
@@ -16,6 +16,9 @@ const Table = (props) => {
     <Container>
       {gameStarted && (
         <React.Fragment>
+          <OponentPlayerLabel>Computer cards</OponentPlayerLabel>
+          <MainPlayerLabel>Your cards</MainPlayerLabel>
+
           {allCards.map(card =>
             <Card card={card} key={card.id} clickable={true} cardWidth={cardWidth.currentPlayer}></Card>
           )}

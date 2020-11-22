@@ -24,7 +24,7 @@ export function* computerPlay() {
 
     let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
-        yield call(delay, getRandomInt(2000, 8000));
+        yield call(delay, getRandomInt(2000, 16000));
         let currentCard = yield select(currentCardSelector);
         let commonIcon = yield call(iconInCommon, currentCard, computerCard);
         yield put({

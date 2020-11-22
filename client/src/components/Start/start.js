@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 
 const Start = (props) => {
+    const { gameStarted } = props;
 
     /*const { playerSubmited, gameStarted } = props;
 
@@ -53,16 +54,18 @@ const Start = (props) => {
 
     return (
         <div>
-            <button onClick={onPlayAloneClickHandler} >Jugar Solo</button>
-            <button>Jugar contra alguien</button>
+            { !gameStarted && (
+                <React.Fragment>
+                    <button onClick={onPlayAloneClickHandler} >Play Alone</button>
+                    <button>Play against somebody</button>
+                </React.Fragment>
+            )}
         </div>
-
     );
 };
 
 
 const mapStateToProps = state => ({
-    playerSubmited: state.gameReducer.players.filter(p => p.isCurrentPlayer).length != 0,
     gameStarted: state.gameReducer.started
 });
 
