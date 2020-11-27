@@ -4,7 +4,6 @@ import Table from './components/Table/Table';
 
 const App = () => (
   <React.Fragment>
-    <Start />
     <Table />
   </React.Fragment>
 );

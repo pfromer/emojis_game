@@ -46,7 +46,8 @@ const defaultSettingsCard = (card: PositionedCard): PositionedCard => {
 
 const initalGame = (): Game => {
     return {
-        players: [],
+        players: [{ id: 1, name: "You", cards: [], currentCard: null, isCurrentPlayer: true },
+        { id: 2, name: "Computer", cards: [], currentCard: null, isCurrentPlayer: false }],
         deck: builDeck(),
         currentCard: null,
         started: false,

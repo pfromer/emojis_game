@@ -19,6 +19,8 @@ const Start = (props) => {
 
     const [roomNumber, setRoomNumber] = useState(null);
 
+
+
     const onPlayAloneClickHandler = () => {
         dispatch({
             type: 'ADD_PLAYER',
@@ -54,8 +56,7 @@ const Start = (props) => {
                 <React.Fragment>
                     {!roomNumber && !showUserNameForm && (
                         <React.Fragment>
-                            <button onClick={onPlayAloneClickHandler}>Play Alone</button>
-                            <button onClick={() => setShowUserNameForm(true)}>Play against somebody</button>
+                            <a onClick={onPlayAloneClickHandler}>Play Alone</a>
                         </React.Fragment>
                     )}
                     { !roomNumber && showUserNameForm && (
