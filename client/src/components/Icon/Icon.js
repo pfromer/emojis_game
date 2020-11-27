@@ -1,10 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import { StyledIcon } from './Styles'
+import { useWindowSize } from '../../utils/windowsSize'
+
+
+
 
 export const Icon = (props) => {
     const { icon, index, clickable, cardId } = props;
     const dispatch = useDispatch()
+    const size = useWindowSize();
 
     const onClickHandler = () => {
         if (clickable) {
@@ -18,7 +23,7 @@ export const Icon = (props) => {
     };
 
     return (
-        <StyledIcon i={index} layout={0} onClick={onClickHandler}>{icon.image}</StyledIcon>
+        <StyledIcon i={index} layout={0} onClick={onClickHandler}>{size.width < 760 ? icon.id : icon.image}</StyledIcon>
     );
 };
 
