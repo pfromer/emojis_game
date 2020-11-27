@@ -56,7 +56,8 @@ const Start = (props) => {
                 <React.Fragment>
                     {!roomNumber && !showUserNameForm && (
                         <React.Fragment>
-                            <a onClick={onPlayAloneClickHandler}>Play Alone</a>
+                            <button onClick={onPlayAloneClickHandler}>Play Alone</button>
+                            <button onClick={() => setShowUserNameForm(true)}>Play against somebody</button>
                         </React.Fragment>
                     )}
                     { !roomNumber && showUserNameForm && (
