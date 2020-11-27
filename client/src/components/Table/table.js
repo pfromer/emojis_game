@@ -13,18 +13,18 @@ const Table = (props) => {
   const { gameStarted, allCards } = props;
 
   return (
-    <Container>
+    <React.Fragment>
       {gameStarted && (
-        <React.Fragment>
+        <Container>
           <OponentPlayerLabel>Computer cards</OponentPlayerLabel>
           <MainPlayerLabel>Your cards</MainPlayerLabel>
 
           {allCards.map(card =>
             <Card card={card} key={card.id} clickable={true} cardWidth={cardWidth.currentPlayer}></Card>
           )}
-        </React.Fragment>
+        </Container>
       )}
-    </Container>
+    </React.Fragment>
   );
 };
 
