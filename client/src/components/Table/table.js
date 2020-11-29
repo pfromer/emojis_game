@@ -10,7 +10,7 @@ const cardWidth = {
 }
 
 const Table = (props) => {
-  const { gameStarted, allCards } = props;
+  const { gameStarted, allCards, gameLost, gameWon } = props;
 
   return (
     <React.Fragment>
@@ -24,13 +24,21 @@ const Table = (props) => {
           )}
         </Container>
       )}
+      {gameLost && (
+        <div>You Lost :(</div>
+      )}
+      {gameWon && (
+        <div>You Won!!</div>
+      )}
     </React.Fragment>
   );
 };
 
 const mapStateToProps = state => ({
   allCards: state.gameReducer.allCards,
-  gameStarted: state.gameReducer.started
+  gameStarted: state.gameReducer.started,
+  gameWon: state.gameReducer.gameWon,
+  gameLost: state.gameReducer.gameLost,
 });
 
 export default connect(mapStateToProps)(Table);

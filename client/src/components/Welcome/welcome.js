@@ -36,9 +36,14 @@ const Welcome = (props) => {
                     <Description>Click on the emoji in common between your card and the card in the center of the table.</Description>
                     <Description2>Every pair of cards has one and only one emoji in common!</Description2>
                     <Action onClick={onPlayAloneClickHandler}>Start Playing</Action>
-                    <IconsContainer>
+                    <IconsContainer reverse={false}>
                         {
-                            allIcons.map(i => <StyledIcon key={i.id} i={i.id}>{i.image}</StyledIcon>)
+                            allIcons.map(i => <StyledIcon key={i.id} i={i.id} reverse={false}>{i.image}</StyledIcon>)
+                        }
+                    </IconsContainer>
+                    <IconsContainer reverse={true}>
+                        {
+                            allIcons.map(i => <StyledIcon key={i.id} i={i.id} reverse={true}>{i.image}</StyledIcon>)
                         }
                     </IconsContainer>
                 </Container>

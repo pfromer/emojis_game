@@ -51,7 +51,8 @@ const initalGame = (): Game => {
         currentCard: null,
         started: false,
         winner: null,
-        gameOver: false,
+        gameLost: false,
+        gameWon: false,
         zIndex: 56,
         allCards: [],
         playersCount: null
@@ -81,13 +82,14 @@ export default (state: Game = initialGameState, action: any): Game => {
                 let updatedPlayer: Player = { ...player, cards: leftCardsForPlayer };
                 let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id);
                 let winner = state.winner == null && leftCardsForPlayer.length == 0 ? player : null;
-                let gameOver = updatedPlayers.every(p => p.cards.length == 0);
+                let gameLost = updatedPlayers.find(p => !p.isCurrentPlayer).cards.length == 0;
+                let gameWon = updatedPlayers.find(p => p.isCurrentPlayer).cards.length == 0;
                 let currentCard = defaultSettingsCard({ ...playerCard, zIndex: state.zIndex + 1, isCentered: true })
                 let allCards = [
                     ...state.allCards.filter(c => c.id != currentCard.id).map(c => defaultSettingsCard(c)),
                     ...[currentCard]
                 ];
-                return { ...state, currentCard: currentCard, players: updatedPlayers, winner: winner, gameOver: gameOver, zIndex: state.zIndex + 1, allCards: allCards };
+                return { ...state, currentCard: currentCard, players: updatedPlayers, winner: winner, gameLost: gameLost, gameWon: gameWon, zIndex: state.zIndex + 1, allCards: allCards };
             } else {
                 return state;
             }

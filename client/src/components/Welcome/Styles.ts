@@ -1,6 +1,5 @@
 import styled, { keyframes, css } from 'styled-components'
 
-
 function moveIconDown() {
     const animation = keyframes`
       to {
@@ -9,8 +8,6 @@ function moveIconDown() {
     `;
     return animation;
 }
-
-
 
 export const Container = styled.div`
     height: 100vh;
@@ -42,17 +39,15 @@ export const Action = styled.a`
     text-decoration: underline;
     cursor: pointer;
 `
-export const StyledIcon = styled('span') <{ i: number }>` 
+export const StyledIcon = styled('span') <{ i: number, reverse: boolean }>` 
     position: absolute;
-   
-    left: ${p => 'calc(' + p.i + 'vw)'};
-
+    left: ${p => 'calc(' + (p.reverse ? -p.i : p.i) + 'vw)'};
     animation: ${moveIconDown()} ${p => p.i * 0.3 + 's'} linear;
     animation-fill-mode: forwards;
 `
 
-export const IconsContainer = styled.div`
-    position: relative;
-    font-size: 25px;
-    margin-left: -59vw;
+export const IconsContainer = styled('div') <{ reverse: boolean }>`
+    position: absolute;
+    font-size: 25px; 
+    margin-left: ${p => (p.reverse ? 59 : -59) + 'vw'};
 `
