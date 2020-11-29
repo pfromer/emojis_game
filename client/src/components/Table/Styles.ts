@@ -45,7 +45,6 @@ export const OponentPlayerLabel = styled.label`
 export const GameOver = styled.label`
     position: absolute;
     top: 50vh;
-    left: 50vw;
     z-index: 1000;
 `
 
@@ -55,5 +54,9 @@ export const Action = styled.a`
     font-size: 80px;
     text-decoration: underline;
     cursor: pointer;
-    left: 41vw;
+`
+export const FlexContainer = styled.div`
+    display: flex;
+    justify-content: center;
+
 `

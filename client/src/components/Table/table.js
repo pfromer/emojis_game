@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '../Card/Card';
-import { Container, OponentPlayerLabel, MainPlayerLabel, GameOver, Action } from './Styles.ts'
+import { Container, OponentPlayerLabel, MainPlayerLabel, GameOver, Action, FlexContainer } from './Styles.ts'
 import { useDispatch } from 'react-redux'
 
 const cardWidth = {
@@ -50,11 +50,11 @@ const Table = (props) => {
         </Container>
       )}
       {(gameLost || gameWon) && (
-        <React.Fragment>
+        <FlexContainer>
           {gameLost && (<GameOver>You Lost <span>😬</span></GameOver>)}
           {gameWon && (<GameOver>You Won!!! Congratulations!!! <span>😎😎😎</span></GameOver>)}
           <Action onClick={resetClickHandler}>Keep Playing!</Action>
-        </React.Fragment>
+        </FlexContainer>
       )}
     </React.Fragment>
   );
