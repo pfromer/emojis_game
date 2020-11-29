@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '../Card/Card';
-import { Container, OponentPlayerLabel, MainPlayerLabel } from './Styles'
+import { Container, OponentPlayerLabel, MainPlayerLabel, GameOver, Action, FlexContainer } from './Styles.ts'
+import { useDispatch } from 'react-redux'
 
 const cardWidth = {
   currentPlayer: '30vh',
@@ -10,27 +11,60 @@ const cardWidth = {
 }
 
 const Table = (props) => {
-  const { gameStarted, allCards } = props;
+  const { gameStarted, allCards, gameLost, gameWon } = props;
+
+  const dispatch = useDispatch()
+
+  const resetClickHandler = () => {
+    dispatch({
+      type: 'RESET'
+    })
+
+    dispatch({
+      type: 'ADD_PLAYER',
+      id: 1,
+      name: 'YOU',
+      isCurrentPlayer: true
+    })
+    dispatch({
+      type: 'ADD_PLAYER',
+      id: 2,
+      name: 'COMPUTER',
+      isCurrentPlayer: false
+    })
+
+    dispatch({
+      type: 'START_PLAYING_ALONE_SAGA'
+    })
+  };
 
   return (
-    <Container>
+    <React.Fragment>
       {gameStarted && (
-        <React.Fragment>
+        <Container gameOver={gameLost || gameWon}>
           <OponentPlayerLabel>Computer cards</OponentPlayerLabel>
           <MainPlayerLabel>Your cards</MainPlayerLabel>
-
           {allCards.map(card =>
             <Card card={card} key={card.id} clickable={true} cardWidth={cardWidth.currentPlayer}></Card>
           )}
-        </React.Fragment>
+        </Container>
       )}
-    </Container>
+      {(gameLost || gameWon) && (
+        <FlexContainer>
+          {gameLost && (<GameOver>You Lost <span>😬</span></GameOver>)}
+          {gameWon && (<GameOver>You Won!!! Congratulations!!! <span>😎😎😎</span></GameOver>)}
+          <Action onClick={resetClickHandler}>Keep Playing!</Action>
+        </FlexContainer>
+      )}
+    </React.Fragment>
   );
 };
 
 const mapStateToProps = state => ({
   allCards: state.gameReducer.allCards,
-  gameStarted: state.gameReducer.started
+  gameStarted: state.gameReducer.started,
+  gameWon: state.gameReducer.gameWon,
+  gameLost: state.gameReducer.gameLost,
 });
 
 export default connect(mapStateToProps)(Table);

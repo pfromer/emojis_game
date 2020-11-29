@@ -23,7 +23,7 @@ export const Icon = (props) => {
     };
 
     return (
-        <StyledIcon i={index} layout={0} onClick={onClickHandler}>{size.width < 760 ? icon.id : icon.image}</StyledIcon>
+        <StyledIcon i={index} layout={0} onClick={onClickHandler}>{size.width < 760 ? icon.image : icon.image}</StyledIcon>
     );
 };
 

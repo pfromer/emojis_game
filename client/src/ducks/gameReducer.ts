@@ -5,6 +5,7 @@ const PLAYER_GUESS = 'PLAYER_GUESS';
 const SHARE_CARD = 'SHARE_CARD';
 const ADD_PLAYER = 'ADD_PLAYER';
 const START_PLAYING = 'START_PLAYING'
+const RESET = 'RESET'
 
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
@@ -51,7 +52,8 @@ const initalGame = (): Game => {
         currentCard: null,
         started: false,
         winner: null,
-        gameOver: false,
+        gameLost: false,
+        gameWon: false,
         zIndex: 56,
         allCards: [],
         playersCount: null
@@ -81,13 +83,14 @@ export default (state: Game = initialGameState, action: any): Game => {
                 let updatedPlayer: Player = { ...player, cards: leftCardsForPlayer };
                 let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id);
                 let winner = state.winner == null && leftCardsForPlayer.length == 0 ? player : null;
-                let gameOver = updatedPlayers.every(p => p.cards.length == 0);
+                let gameLost = !state.gameWon && updatedPlayers.find(p => !p.isCurrentPlayer).cards.length == 0;
+                let gameWon = !state.gameLost && updatedPlayers.find(p => p.isCurrentPlayer).cards.length == 0;
                 let currentCard = defaultSettingsCard({ ...playerCard, zIndex: state.zIndex + 1, isCentered: true })
                 let allCards = [
                     ...state.allCards.filter(c => c.id != currentCard.id).map(c => defaultSettingsCard(c)),
                     ...[currentCard]
                 ];
-                return { ...state, currentCard: currentCard, players: updatedPlayers, winner: winner, gameOver: gameOver, zIndex: state.zIndex + 1, allCards: allCards };
+                return { ...state, currentCard: currentCard, players: updatedPlayers, winner: winner, gameLost: gameLost, gameWon: gameWon, zIndex: state.zIndex + 1, allCards: allCards };
             } else {
                 return state;
             }
@@ -100,6 +103,8 @@ export default (state: Game = initialGameState, action: any): Game => {
                 ...state,
                 players: updatedPlayers
             }
+        case RESET:
+            return initalGame();
 
         default:
             return state;

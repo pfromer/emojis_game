@@ -32,7 +32,8 @@ export type Game = {
     deck: PositionedCard[]
     currentCard: PositionedCard | null
     winner: Player | null
-    gameOver: boolean,
+    gameLost: boolean,
+    gameWon: boolean,
     started: boolean,
     zIndex: number,
     allCards: PositionedCard[],
