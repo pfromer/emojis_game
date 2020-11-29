@@ -5,6 +5,7 @@ const PLAYER_GUESS = 'PLAYER_GUESS';
 const SHARE_CARD = 'SHARE_CARD';
 const ADD_PLAYER = 'ADD_PLAYER';
 const START_PLAYING = 'START_PLAYING'
+const RESET = 'RESET'
 
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
@@ -82,8 +83,8 @@ export default (state: Game = initialGameState, action: any): Game => {
                 let updatedPlayer: Player = { ...player, cards: leftCardsForPlayer };
                 let updatedPlayers = [updatedPlayer, ...state.players.filter(p => p.id != action.playerId)].sort(p => p.id);
                 let winner = state.winner == null && leftCardsForPlayer.length == 0 ? player : null;
-                let gameLost = updatedPlayers.find(p => !p.isCurrentPlayer).cards.length == 0;
-                let gameWon = updatedPlayers.find(p => p.isCurrentPlayer).cards.length == 0;
+                let gameLost = !state.gameWon && updatedPlayers.find(p => !p.isCurrentPlayer).cards.length == 0;
+                let gameWon = !state.gameLost && updatedPlayers.find(p => p.isCurrentPlayer).cards.length == 0;
                 let currentCard = defaultSettingsCard({ ...playerCard, zIndex: state.zIndex + 1, isCentered: true })
                 let allCards = [
                     ...state.allCards.filter(c => c.id != currentCard.id).map(c => defaultSettingsCard(c)),
@@ -102,6 +103,8 @@ export default (state: Game = initialGameState, action: any): Game => {
                 ...state,
                 players: updatedPlayers
             }
+        case RESET:
+            return initalGame();
 
         default:
             return state;
