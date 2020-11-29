@@ -1,5 +1,6 @@
 import styled, { keyframes, css } from 'styled-components'
 
+
 function moveIconDown() {
     const animation = keyframes`
       to {
@@ -21,10 +22,10 @@ export const Title = styled.div`
     font-size: 40px;
 `
 
-export const Description = styled.div`
+export const Description = styled('div') <{ isMobile: boolean }>` 
     position: absolute;
     top: 30vh;
-    font-size: 25px;
+    font-size: ${p => (p.isMobile ? 35 : 25) + 'px'};
 `
 export const Description2 = styled.div`
     position: absolute;

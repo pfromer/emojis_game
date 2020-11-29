@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
 import { Container, Description, Description2, Title, Action, StyledIcon, IconsContainer } from './Styles.ts'
 import { allIcons } from '../../modules/allIcons';
+import { useWindowSize } from '../../utils/windowsSize'
 
 const Welcome = (props) => {
     const { gameStarted } = props;
-
-    const dispatch = useDispatch()
-
+    const size = useWindowSize();
+    const dispatch = useDispatch();
     const onPlayAloneClickHandler = () => {
         dispatch({
             type: 'ADD_PLAYER',
@@ -22,7 +22,6 @@ const Welcome = (props) => {
             name: 'COMPUTER',
             isCurrentPlayer: false
         })
-
         dispatch({
             type: 'START_PLAYING_ALONE_SAGA'
         })
@@ -32,10 +31,24 @@ const Welcome = (props) => {
         <div>
             { !gameStarted && (
                 <Container>
-                    <Title>Welcome to emojis FUN!</Title>
-                    <Description>Click on the emoji in common between your card and the card in the center of the table.</Description>
-                    <Description2>Every pair of cards has one and only one emoji in common!</Description2>
-                    <Action onClick={onPlayAloneClickHandler}>Start Playing</Action>
+                    {
+                        size.width < 900 && (
+                            <React.Fragment>
+                                <Title>Emojis Fun is not available for mobile devices yet.</Title>
+                                <Description isMobile={true}>Please try Emojis Fun in a wider screen.</Description>
+                            </React.Fragment>
+                        )
+                    }
+                    {
+                        size.width >= 900 && (
+                            <React.Fragment>
+                                <Title>Welcome to emojis FUN!</Title>
+                                <Description isMobile={false}>Click on the emoji in common between your card and the card in the center of the table.</Description>
+                                <Description2>Every pair of cards has one and only one emoji in common!</Description2>
+                                <Action onClick={onPlayAloneClickHandler}>Start Playing</Action>
+                            </React.Fragment>
+                        )
+                    }
                     <IconsContainer reverse={false}>
                         {
                             allIcons.map(i => <StyledIcon key={i.id} i={i.id} reverse={false}>{i.image}</StyledIcon>)
