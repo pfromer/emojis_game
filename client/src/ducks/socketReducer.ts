@@ -1,8 +1,7 @@
 
 import * as io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
-import { take, call, put, fork, race, cancelled, delay } from 'redux-saga/effects';
-import { createSelector } from 'reselect';
+import { take, call, put, fork, race, cancelled, delay, select } from 'redux-saga/effects';
 
 const START_CHANNEL = 'START_CHANNEL';
 const STOP_CHANNEL = 'STOP_CHANNEL';
@@ -10,12 +9,19 @@ const CHANNEL_ON = 'CHANNEL_ON';
 const CHANNEL_OFF = 'CHANNEL_OFF';
 const SERVER_ON = 'SERVER_ON';
 const SERVER_OFF = 'SERVER_OFF';
+const CREATE_NEW_ROOM = 'CREATE_NEW_ROOM';
+const SET_ROOM = 'SET_ROOM';
+const JOIN_ROOM = 'JOIN_ROOM';
+const SECOND_USER_JOINED = 'SECOND_USER_JOINED';
+const SECOND_USER_COMPLETED_FORM = 'SECOND_USER_COMPLETED_FORM';
+
 
 const socketServerURL = 'http://localhost:3000';
 
 const initialState = {
   channelStatus: 'off',
   serverStatus: 'unknown',
+  room : null
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +34,8 @@ export default (state = initialState, action) => {
       return { ...state, serverStatus: 'off' };
     case SERVER_ON:
       return { ...state, serverStatus: 'on' };
+    case SET_ROOM:
+      return { ...state, room: action.room };
     default:
       return state;
   }
@@ -36,14 +44,9 @@ export default (state = initialState, action) => {
 // action creators for Stop and Start buttons. You can also put them into componentDidMount
 export const startChannel = () => ({ type: START_CHANNEL });
 export const stopChannel = () => ({ type: STOP_CHANNEL });
+export const createNewRoom = () => ({ type: CREATE_NEW_ROOM  });
+export const joinRoom = () => ({ type: JOIN_ROOM  });
 
-// sorting function to show the latest tasks first
-const sortTasks = (task1, task2) => task2.taskID - task1.taskID;
-
-// selector to get only first 5 latest tasks
-const taskSelector = state => state.taskReducer.taskList;
-const topTask = allTasks => allTasks.sort(sortTasks).slice(0, 5);
-export const topTaskSelector = createSelector(taskSelector, topTask);
 
 // wrapping functions for socket events (connect, disconnect, reconnect)
 let socket;
@@ -76,18 +79,20 @@ const reconnect = () => {
 
 // This is how channel is created
 const createSocketChannel = socket => eventChannel((emit) => {
-  const handler = (data) => {
-    emit(data);
+  const handler = (messageType) => (data) => {
+    emit({data : data, messageType : messageType});
   };
 
   //decimos que cada vez que al socket le llegue un "newTask"
   //se tiene que "emitir" esa tarea en este canal
-  socket.on('oponentPlay', handler);
+
+  let messageTypes = ['join_room', 'second_user_joined'];
+  messageTypes.forEach(messageType => socket.on(messageType, handler(messageType)))
 
   //ver la documentacion de eventChannel. la funcion subscriptora debe
   //devolver una funcion que haga que el canal no esuche mas al evento "newTask"
   return () => {
-    socket.off('oponentPlay', handler);
+    messageTypes.forEach(messageType => socket.off(messageType, handler(messageType)))
   };
 });
 
@@ -150,8 +155,17 @@ const listenServerSaga = function* () {
       //escuchamos todo el tiempo las tareas que se emiten por el canal
       const payload = yield take(socketChannel);
       //enviamos las tareas al reducer
-      console.log("player_guessed", payload);
-      yield put({ type: 'PLAYER_GUESS', playerId: payload.playerId, iconId: payload.iconId, isCurrentPlayer: payload.isCurrentPlayer });
+      console.log("message-received", payload);
+
+      switch(payload.messageType) {
+        case("second_user_joined") :
+          yield put({ type: "BUILD_DECK", randomOrder : payload.data.randomOrder });
+          break;
+        default:
+          break;
+      }
+
+      //yield put({ type: 'PLAYER_GUESS', playerId: payload.playerId, iconId: payload.iconId, isCurrentPlayer: payload.isCurrentPlayer });
     }
   } catch (error) {
     console.log(error);
@@ -167,9 +181,53 @@ const listenServerSaga = function* () {
 export const startStopChannel = function* () {
   while (true) {
     yield take(START_CHANNEL);
+    console.log("start stop channel")
     yield race({
       task: call(listenServerSaga),
       cancel: take(STOP_CHANNEL),
     });
   }
 };
+
+
+// saga listens for start and stop actions
+export const createNewRoomSaga = function* () {
+  while (true) {
+    yield take(CREATE_NEW_ROOM);
+    const socket = yield call(connect);
+    const room = yield Math.random().toString().replace('.','')
+    yield put({ type: SET_ROOM, room : room });
+    console.log("creating new room ", room)
+    const selfName = yield select(firstPlayerNameSelector)
+    socket.emit('join_room', {room: room, user_name : selfName});
+    
+    window.location.pathname = 'first_user/' + room + '/' + selfName
+  }
+};
+
+// saga listens for start and stop actions
+export const joinRoomSaga = function* () {
+  while (true) {
+    yield take(JOIN_ROOM);
+    const socket = yield call(connect);
+    const room = yield select(roomSelector)
+    console.log("joining room ", room)
+    socket.emit('join_room', {room: room, user_name : "unknown"});
+  }
+};
+
+// saga listens for start and stop actions
+export const secondUserCompletedFormSaga = function* () {
+  while (true) {
+    yield take(SECOND_USER_COMPLETED_FORM);
+    const socket = yield call(connect);
+    const selfName = yield select(secondPlayerNameSelector)
+    const room = yield select(roomSelector)
+    socket.emit('second_user_joined', { secondUserName : selfName, room : room});
+  }
+};
+
+const roomSelector = (state): string => (state.socketReducer.room)
+const firstPlayerNameSelector = (state): string => (state.gameReducer.players[0].name)
+const secondPlayerNameSelector = (state): string => (state.gameReducer.players[1].name)
+const currentPlayerNameSelector = (state): string => (state.gameReducer.players.filter(u => u.isCurrentPlayer)[0].name)

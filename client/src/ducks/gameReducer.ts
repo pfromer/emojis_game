@@ -6,6 +6,8 @@ const SHARE_CARD = 'SHARE_CARD';
 const ADD_PLAYER = 'ADD_PLAYER';
 const START_PLAYING = 'START_PLAYING'
 const RESET = 'RESET'
+const SET_IS_FIRST_USER = 'SET_IS_FIRST_USER'
+const BUILD_DECK = 'BUILD_DECK'
 
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
@@ -41,6 +43,16 @@ const builDeck = (): PositionedCard[] => {
     return result;
 }
 
+const buildDeckFromServer = (randomOrder : Int16Array): PositionedCard[] => {
+  let result = [];
+
+  for (let i = 0; i < randomOrder.length; i++) {
+      let card = allCards[randomOrder[i]];
+      result.push({ ...card, zIndex: 1, top: 0, left: 0, isCentered: false, shareCard: false, initialPosition: true });
+  }
+  return result;
+}
+
 const defaultSettingsCard = (card: PositionedCard): PositionedCard => {
     return { ...card, shareCard: false, initialPosition: false }
 }
@@ -56,7 +68,8 @@ const initalGame = (): Game => {
         gameWon: false,
         zIndex: 56,
         allCards: [],
-        playersCount: null
+        playersCount: null,
+        isFirstUser: true
     }
 }
 
@@ -64,6 +77,11 @@ const initialGameState: Game = initalGame()
 
 export default (state: Game = initialGameState, action: any): Game => {
     switch (action.type) {
+      case BUILD_DECK:
+        return {
+            ...state,
+            deck : buildDeckFromServer(action.randomOrder)
+        };
         case START_PLAYING:
             let cardsWithPlayers = shareCards(state);
             let firstCardOnTable = defaultSettingsCard({ ...state.deck[0], belongsToCurrentPlayer: null, left: 50, isCentered: true, index: 0 });
@@ -105,6 +123,8 @@ export default (state: Game = initialGameState, action: any): Game => {
             }
         case RESET:
             return initalGame();
+        case SET_IS_FIRST_USER:
+            return {...state, isFirstUser : action.isFirstUser}
 
         default:
             return state;

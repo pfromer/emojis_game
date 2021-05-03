@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startChannel, stopChannel } from '../ducks/task';
+import { startChannel, stopChannel } from '../ducks/socketReducer';
 
-const Buttons = (props) => {
+const StartStopChannelButtons = (props) => {
   const { startChannel, stopChannel } = props;
   return (
     <div style={{ display: 'flex', width: '400px', justifyContent: 'space-between', marginBottom: 20 }}>
@@ -12,4 +12,4 @@ const Buttons = (props) => {
   );
 };
 
-export default connect(null, { startChannel, stopChannel })(Buttons);
+export default connect(null, { startChannel, stopChannel })(StartStopChannelButtons);

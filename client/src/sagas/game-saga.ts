@@ -22,7 +22,7 @@ export function* computerPlay() {
 
     //yield put({ type: 'START_CHANNEL' });
 
-    let computerCard = yield select(computerCardSelector);
+    /*let computerCard = yield select(computerCardSelector);
     while (computerCard != null) {
         yield call(delay, getRandomInt(2000, 16000));
         let currentCard = yield select(currentCardSelector);
@@ -33,7 +33,7 @@ export function* computerPlay() {
             playerId: 2
         })
         computerCard = yield select(computerCardSelector);
-    }
+    }*/
 }
 
 export function* play(action) {
