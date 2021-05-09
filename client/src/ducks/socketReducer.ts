@@ -1,7 +1,7 @@
 
 import * as io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
-import { take, call, put, fork, race, cancelled, delay, select } from 'redux-saga/effects';
+import { take, call, put, fork, race, cancelled, delay, select, takeLatest } from 'redux-saga/effects';
 import { Card } from '../types/game';
 
 const START_CHANNEL = 'START_CHANNEL';
@@ -87,7 +87,7 @@ const createSocketChannel = socket => eventChannel((emit) => {
   //decimos que cada vez que al socket le llegue un "newTask"
   //se tiene que "emitir" esa tarea en este canal
 
-  let messageTypes = ['join_room', 'second_user_joined'];
+  let messageTypes = ['join_room', 'second_user_joined', 'player_click'];
   messageTypes.forEach(messageType => socket.on(messageType, handler(messageType)))
 
   //ver la documentacion de eventChannel. la funcion subscriptora debe
@@ -179,11 +179,21 @@ const listenServerSaga = function* () {
           }
           
           break;
+        case("player_click") :
+          yield put({ 
+            type: 'PLAYER_GUESS',
+            playerId: payload.data.playerId,
+            iconId: payload.data.iconId,
+            cardId: payload.data.cardId,
+          })
+          
+          break;
+
+
         default:
           break;
       }
 
-      //yield put({ type: 'PLAYER_GUESS', playerId: payload.playerId, iconId: payload.iconId, isCurrentPlayer: payload.isCurrentPlayer });
     }
   } catch (error) {
     console.log(error);
@@ -239,6 +249,24 @@ export const secondUserCompletedFormSaga = function* () {
     socket.emit('second_user_joined', { secondUserName : selfName, room : room});
   }
 };
+
+export const listenIconClickSaga = function* () {
+  yield takeLatest('PLAYER_ICON_CLICK', sendUserClick)
+};
+
+export function* sendUserClick(action) {
+
+  const room = yield select(roomSelector)
+  const args = {
+    iconId: action.iconId,
+    playerId: action.playerId,
+    cardId: action.cardId,
+    room : room
+  }
+  const socket = yield call(connect);
+  socket.emit('player_click', args);
+}
+
 
 const roomSelector = (state): string => (state.socketReducer.room)
 const firstPlayerNameSelector = (state): string => (state.gameReducer.players[0].name)

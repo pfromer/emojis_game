@@ -13,9 +13,6 @@ const cardWidth = {
 const Table = (props) => {
   const { gameStarted, allCards, oponentPlayerName, currentPlayerName } = props;
 
-  const dispatch = useDispatch()
-  debugger
-
 
   return (
     <React.Fragment>

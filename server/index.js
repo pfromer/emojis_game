@@ -33,8 +33,13 @@ io.on("connection", (socket) => {
     });
 
     socket.on('second_user_joined', function(payload) {
-      let room = payload.room
       console.log('second_user_joined payload ', payload)
-      io.to(room).emit('second_user_joined', {secondUserName : payload.secondUserName, randomOrder : randomOrder()});
+      io.to(payload.room).emit('second_user_joined', {secondUserName : payload.secondUserName, randomOrder : randomOrder()});
     })
+
+    socket.on('player_click', function(payload) {
+      console.log('player_click ', payload)
+      io.to(payload.room).emit('player_click', payload);
+    })
+
 });
