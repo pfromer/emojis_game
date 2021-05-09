@@ -749,7 +749,7 @@ export const allCards: Card[] = [{
     ]
 },
 {
-    id: 54,
+    id: 53,
     icons: [
 
         allIcons[22],
@@ -763,7 +763,7 @@ export const allCards: Card[] = [{
     ]
 },
 {
-    id: 55,
+    id: 54,
     icons: [
 
         allIcons[22],
@@ -777,7 +777,7 @@ export const allCards: Card[] = [{
     ]
 },
 {
-    id: 56,
+    id: 55,
     icons: [
 
         allIcons[51],

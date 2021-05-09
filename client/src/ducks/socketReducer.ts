@@ -2,6 +2,7 @@
 import * as io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { take, call, put, fork, race, cancelled, delay, select } from 'redux-saga/effects';
+import { Card } from '../types/game';
 
 const START_CHANNEL = 'START_CHANNEL';
 const STOP_CHANNEL = 'STOP_CHANNEL';
@@ -160,6 +161,23 @@ const listenServerSaga = function* () {
       switch(payload.messageType) {
         case("second_user_joined") :
           yield put({ type: "BUILD_DECK", randomOrder : payload.data.randomOrder });
+          const isFirstUser = yield select(isFirstUserSelector)
+          if(isFirstUser) {
+            yield put({ 
+              type: 'ADD_PLAYER',
+              id: 2,
+              name: payload.data.secondUserName,
+              isCurrentPlayer: false
+            })
+          }
+          yield put({ type: "START_PLAYING" });
+          let allCards = yield select(allCardsSelector);
+
+          for (let i = 0; i < allCards.length; i++) {
+              yield put({ type: 'SHARE_CARD', cardId: allCards[i].id });
+              yield delay(10)
+          }
+          
           break;
         default:
           break;
@@ -177,11 +195,9 @@ const listenServerSaga = function* () {
   }
 };
 
-// saga listens for start and stop actions
 export const startStopChannel = function* () {
   while (true) {
     yield take(START_CHANNEL);
-    console.log("start stop channel")
     yield race({
       task: call(listenServerSaga),
       cancel: take(STOP_CHANNEL),
@@ -189,8 +205,6 @@ export const startStopChannel = function* () {
   }
 };
 
-
-// saga listens for start and stop actions
 export const createNewRoomSaga = function* () {
   while (true) {
     yield take(CREATE_NEW_ROOM);
@@ -200,7 +214,6 @@ export const createNewRoomSaga = function* () {
     console.log("creating new room ", room)
     const selfName = yield select(firstPlayerNameSelector)
     socket.emit('join_room', {room: room, user_name : selfName});
-    
     window.location.pathname = 'first_user/' + room + '/' + selfName
   }
 };
@@ -230,4 +243,5 @@ export const secondUserCompletedFormSaga = function* () {
 const roomSelector = (state): string => (state.socketReducer.room)
 const firstPlayerNameSelector = (state): string => (state.gameReducer.players[0].name)
 const secondPlayerNameSelector = (state): string => (state.gameReducer.players[1].name)
-const currentPlayerNameSelector = (state): string => (state.gameReducer.players.filter(u => u.isCurrentPlayer)[0].name)
+const isFirstUserSelector = (state): string => (state.gameReducer.isFirstUser)
+const allCardsSelector = (state): [Card] => state.gameReducer.allCards.sort(function (x, y) { return x.index < y.index ? -1 : 1 })

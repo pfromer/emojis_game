@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
+import Table from './Table/table'
 
-const SecondUserStartPage = () => {
+const SecondUserStartPage = (props) => {
   const { room_number, friend_name } = useParams();
+  const { gameStarted } = props
   const [name, setName] = useState('');
   const dispatch = useDispatch()
 
@@ -25,7 +27,6 @@ const SecondUserStartPage = () => {
     dispatch({
       type: 'JOIN_ROOM',
     })
-
   }, [])
 
   const handleSubmit = (event) => {
@@ -44,11 +45,6 @@ const SecondUserStartPage = () => {
       isCurrentPlayer: true
     })
 
-    /*dispatch({
-      type: 'JOIN_ROOM',
-    })*/
-    
-
     dispatch({
       type: 'SECOND_USER_COMPLETED_FORM'
     })
@@ -61,25 +57,35 @@ const SecondUserStartPage = () => {
   }
 
   return (
-    <div>
-     <div>
-      <h1>
-        Welcome to Emojis Fun!! {friend_name} is waiting for you to join.
-      </h1>
-      <h2>
-        Please enter your name
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text"  onChange={handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      </div>
-    </div>
-    
+    <React.Fragment>
+      {!gameStarted && (<div>
+          <div>
+            <h1>
+              Welcome to Emojis Fun!! {friend_name} is waiting for you to join.
+            </h1>
+            <h2>
+              Please enter your name
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <label>
+                Name:
+                <input type="text"  onChange={handleChange} />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+            </div>
+          </div>
+          )}
+      {gameStarted && (
+        <Table/>
+      )}
+</React.Fragment>
   );
 }
 
-export default SecondUserStartPage
+const mapStateToProps = state => ({
+  gameStarted: state.gameReducer.started
+});
+
+export default connect(mapStateToProps)(SecondUserStartPage);
+

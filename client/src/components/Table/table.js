@@ -11,50 +11,22 @@ const cardWidth = {
 }
 
 const Table = (props) => {
-  const { gameStarted, allCards, gameLost, gameWon } = props;
+  const { gameStarted, allCards, oponentPlayerName, currentPlayerName } = props;
 
   const dispatch = useDispatch()
+  debugger
 
-  const resetClickHandler = () => {
-    dispatch({
-      type: 'RESET'
-    })
-
-    dispatch({
-      type: 'ADD_PLAYER',
-      id: 1,
-      name: 'YOU',
-      isCurrentPlayer: true
-    })
-    dispatch({
-      type: 'ADD_PLAYER',
-      id: 2,
-      name: 'COMPUTER',
-      isCurrentPlayer: false
-    })
-
-    dispatch({
-      type: 'START_PLAYING_ALONE_SAGA'
-    })
-  };
 
   return (
     <React.Fragment>
       {gameStarted && (
-        <Container gameOver={gameLost || gameWon}>
-          <OponentPlayerLabel>Computer cards</OponentPlayerLabel>
-          <MainPlayerLabel>Your cards</MainPlayerLabel>
+        <Container gameOver={false}>
+          <OponentPlayerLabel>{oponentPlayerName}</OponentPlayerLabel>
+          <MainPlayerLabel>{currentPlayerName}</MainPlayerLabel>
           {allCards.map(card =>
             <Card card={card} key={card.id} clickable={true} cardWidth={cardWidth.currentPlayer}></Card>
           )}
         </Container>
-      )}
-      {(gameLost || gameWon) && (
-        <FlexContainer>
-          {gameLost && (<GameOver>You Lost <span>😬</span></GameOver>)}
-          {gameWon && (<GameOver>You Won!!! Congratulations!!! <span>😎😎😎</span></GameOver>)}
-          <Action onClick={resetClickHandler}>Keep Playing!</Action>
-        </FlexContainer>
       )}
     </React.Fragment>
   );
@@ -63,8 +35,8 @@ const Table = (props) => {
 const mapStateToProps = state => ({
   allCards: state.gameReducer.allCards,
   gameStarted: state.gameReducer.started,
-  gameWon: state.gameReducer.gameWon,
-  gameLost: state.gameReducer.gameLost,
+  currentPlayerName: state.gameReducer.players.filter(p => p.isCurrentPlayer)[0].name,
+  oponentPlayerName: state.gameReducer.players.filter(p => !p.isCurrentPlayer)[0].name,
 });
 
 export default connect(mapStateToProps)(Table);

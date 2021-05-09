@@ -12,9 +12,9 @@ let rooms = [];
 
 
 const randomOrder = () => {
-  const orderedCardNumbers = [...Array(56).keys()].map(x => x + 1)
+  const orderedCardNumbers = [...Array(54).keys()].map(x => x + 1)
   const result = [];
-  for (let i = 0; i < 56; i++) {
+  for (let i = 0; i < 54; i++) {
     let n = Math.floor((Math.random() * orderedCardNumbers.length));
     let cardNumber = orderedCardNumbers[n];
     orderedCardNumbers.splice(n, 1);
