@@ -9,7 +9,7 @@ const server = express()
   .use(cors())
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-  const io = socketIO(server, { cors: { origin: "*" } });
+  const io = socketIO(server);
 
   const randomOrder = () => {
     const orderedCardNumbers = [...Array(54).keys()].map(x => x + 1)
