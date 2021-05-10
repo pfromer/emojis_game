@@ -2,7 +2,7 @@ const Koa = require('koa');
 const socketIO = require('socket.io');
 
 const app = new Koa();
-const server = app.listen(3000);
+const server = app.listen(process.env.PORT);
 
 const io = socketIO(server);
 let i = 0;
