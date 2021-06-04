@@ -43,7 +43,7 @@ const FirstUserWaitingPage = (props) => {
           <div>
             <CenteredH1>Hello {self_name}!</CenteredH1>
             <CenteredH2>Please share this link with a friend and wait for him to connect!</CenteredH2>
-            <CenteredDiv>http://localhost:8080/second_user/{room}/{self_name.replace(' ','-')}</CenteredDiv>
+            <CenteredDiv>{process.env.DOMAIN}/second_user/{room}/{self_name.replace(' ','-')}</CenteredDiv>
             <CenteredWatch>🕰</CenteredWatch>
           </div>
         </MainContainer>
