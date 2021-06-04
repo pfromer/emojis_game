@@ -1,10 +1,17 @@
 const Koa = require('koa');
 const socketIO = require('socket.io');
-
+const cors = require('@koa/cors');
 const app = new Koa();
-const server = app.listen(process.env.PORT);
 
-const io = socketIO(server);
+
+var options = {
+  origin: '*'
+};
+
+app.use(cors(options));
+const server = app.listen(3000);
+
+const io = socketIO.listen(server);
 let i = 0;
 let iconId = 0;
 

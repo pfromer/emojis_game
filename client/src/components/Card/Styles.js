@@ -43,6 +43,18 @@ const shareCard = keyframes`
   }
 `;
 
+const rotate = keyframes`
+0% {
+  transform: rotate3d(1, -1, 1, 0deg);
+}
+90% {
+  transform: rotate3d(1, -1, 1, 60deg);
+}
+100% {
+  transform: rotate3d(1, -1, 1, 0deg);
+}
+  `;
+
 export const StyledCard = styled.div`
     height: ${p => p.cardWidth};
     width: ${p => p.cardWidth};
@@ -77,6 +89,11 @@ export const StyledCard = styled.div`
 
     ${p => p.shareCard && css`
       animation: ${shareCard} 0.40s ease;
+      animation-fill-mode: forwards;
+    `}
+
+    ${p => p.rotated && css`
+      animation: ${rotate} 3s ease;
       animation-fill-mode: forwards;
     `}
 `

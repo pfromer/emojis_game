@@ -16,7 +16,8 @@ export interface PositionedCard extends Card {
     isCentered: boolean,
     index: number,
     shareCard: boolean,
-    initialPosition: boolean
+    initialPosition: boolean,
+    rotated: boolean
 }
 
 export type Player = {

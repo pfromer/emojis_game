@@ -8,6 +8,7 @@ const START_PLAYING = 'START_PLAYING'
 const RESET = 'RESET'
 const SET_IS_FIRST_USER = 'SET_IS_FIRST_USER'
 const BUILD_DECK = 'BUILD_DECK'
+const ROTATE_CARD = 'ROTATE_CARD';
 
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
@@ -112,6 +113,15 @@ export default (state: Game = initialGameState, action: any): Game => {
             } else {
                 return state;
             }
+          case ROTATE_CARD:
+            let _player = state.players.find(p => p.id == action.playerId);
+            let _playerCard = _player.cards[0];
+            let _rotatedCard = defaultSettingsCard({..._playerCard, rotated : true})
+            let allCards = [
+              ...state.allCards.filter(c => c.id != _playerCard.id).map(c => defaultSettingsCard(c)),
+              ...[_rotatedCard]
+            ];
+            return { ...state, allCards: allCards };
         case SHARE_CARD:
             let _allCards2 = state.allCards.map(c => c.id == action.cardId ? { ...c, shareCard: true, initialPosition: false } : c);
             return { ...state, allCards: _allCards2 };

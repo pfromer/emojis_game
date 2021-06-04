@@ -17,7 +17,9 @@ const SECOND_USER_JOINED = 'SECOND_USER_JOINED';
 const SECOND_USER_COMPLETED_FORM = 'SECOND_USER_COMPLETED_FORM';
 
 
-const socketServerURL = 'http://localhost:3000';
+const socketServerURL = 'http://emojisfunserver-env.eba-b6ax8exz.us-east-2.elasticbeanstalk.com:3000';
+
+//const socketServerURL = 'http://localhost:3000';
 
 const initialState = {
   channelStatus: 'off',

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, connect } from 'react-redux';
-import Table from './Table/table'
+import Table from '../../Table/table'
+import { CenteredH1, CenteredForm, CenteredH2, MainContainer, SecondContainer, Emoji1, Emoji2 } from '../Styles'
 
 const SecondUserStartPage = (props) => {
   const { room_number, friend_name } = useParams();
@@ -58,23 +59,27 @@ const SecondUserStartPage = (props) => {
 
   return (
     <React.Fragment>
-      {!gameStarted && (<div>
-          <div>
-            <h1>
+      {!gameStarted && (    <MainContainer>
+      <SecondContainer>
+      <Emoji1>🕓 </Emoji1> 
+      <div>
+            <CenteredH1>
               Welcome to Emojis Fun!! {friend_name} is waiting for you to join.
-            </h1>
-            <h2>
+            </CenteredH1>
+            <CenteredH2>
               Please enter your name
-            </h2>
-            <form onSubmit={handleSubmit}>
+            </CenteredH2>
+            <CenteredForm onSubmit={handleSubmit}>
               <label>
                 Name:
                 <input type="text"  onChange={handleChange} />
               </label>
               <input type="submit" value="Submit" />
-            </form>
+            </CenteredForm>
             </div>
-          </div>
+            <Emoji2>🕣 </Emoji2> 
+            </SecondContainer>
+          </MainContainer>
           )}
       {gameStarted && (
         <Table/>

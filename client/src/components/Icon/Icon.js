@@ -14,15 +14,30 @@ export const Icon = (props) => {
     let playerId = useSelector(state => state.gameReducer.players.filter(p => p.isCurrentPlayer)[0].id)
 
     const onClickHandler = () => {
-      debugger
+
+      
+      
+
       if(cardHasIcon(currentCard, icon.id)) {
+
+
+
+
         
         if (clickable) {
+          
           dispatch({
-              type: 'PLAYER_ICON_CLICK',
-              iconId: icon.id,
-              playerId: playerId,
-              cardId: cardId
+            type: 'ROTATE_CARD',
+            iconId: icon.id,
+            playerId: playerId,
+            cardId: cardId
+          })
+            
+          dispatch({
+            type: 'PLAYER_ICON_CLICK',
+            iconId: icon.id,
+            playerId: playerId,
+            cardId: cardId
           })
         }
       }

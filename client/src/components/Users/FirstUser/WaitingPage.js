@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Table from './Table/table'
+import Table from '../../Table/table'
+import { CenteredH1, CenteredDiv, CenteredH2, MainContainer, CenteredWatch } from '../Styles'
 
 const FirstUserWaitingPage = (props) => {
   const { room_number, self_name } = useParams();
@@ -38,10 +39,14 @@ const FirstUserWaitingPage = (props) => {
 
     <React.Fragment>
       {!gameStarted && (
-        <div>
-          <h1>Hello {self_name}! Please share this link with a friend and wait for him to connect!</h1>
-          <div>http://localhost:8080/second_user/{room}/{self_name.replace(' ','-')}</div>
-        </div>
+        <MainContainer>
+          <div>
+            <CenteredH1>Hello {self_name}!</CenteredH1>
+            <CenteredH2>Please share this link with a friend and wait for him to connect!</CenteredH2>
+            <CenteredDiv>http://localhost:8080/second_user/{room}/{self_name.replace(' ','-')}</CenteredDiv>
+            <CenteredWatch>🕰</CenteredWatch>
+          </div>
+        </MainContainer>
       )}
       {gameStarted && (
         <Table/>

@@ -1,7 +1,7 @@
 import React from 'react';
-import FirstUserStartPage from './components/FirstUserStartPage'
-import FirstUserWaitingPage from './components/FirstUserWaitingPage'
-import SecondUserStartPage from './components/SecondUserStartPage'
+import FirstUserStartPage from './components/Users/FirstUser/StartPage'
+import FirstUserWaitingPage from './components/Users/FirstUser/WaitingPage'
+import SecondUserStartPage from './components/Users/SecondUser/StartPage'
 import Table from './components/Table/table'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
