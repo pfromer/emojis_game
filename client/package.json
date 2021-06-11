@@ -4,18 +4,19 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "dev-server": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint  src/**",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
     "heroku-postbuild": "npm run build"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/socket.io-client": "^1.4.33",
+    "express": "^4.17.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-redux": "^7.1.0",

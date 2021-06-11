@@ -4,11 +4,11 @@ import FirstUserWaitingPage from './components/Users/FirstUser/WaitingPage'
 import SecondUserStartPage from './components/Users/SecondUser/StartPage'
 import Table from './components/Table/table'
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => (
   <React.Fragment>
-    <BrowserRouter>
+    <HashRouter>
         <Switch>
         <Route path="/second_user/:room_number/:friend_name">
             <SecondUserStartPage />
@@ -23,7 +23,7 @@ const App = () => (
             <FirstUserStartPage />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     
   </React.Fragment>
 );

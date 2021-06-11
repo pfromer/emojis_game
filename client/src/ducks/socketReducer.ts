@@ -224,7 +224,8 @@ export const createNewRoomSaga = function* () {
     console.log("creating new room ", room)
     const selfName = yield select(firstPlayerNameSelector)
     socket.emit('join_room', {room: room, user_name : selfName});
-    window.location.pathname = 'first_user/' + room + '/' + selfName
+    history.pushState({},'','/#/first_user/' + room + '/' + selfName)
+    history.go()
   }
 };
 
