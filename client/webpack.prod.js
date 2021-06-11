@@ -10,7 +10,7 @@ module.exports = merge(common, {
         path: path.resolve('./', 'dist')
     },
     plugins: [new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: 'index_prod.html'
     }),
     new Dotenv()],
 });
