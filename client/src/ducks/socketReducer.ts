@@ -109,9 +109,11 @@ const listenDisconnectSaga = function* () {
 
 const listenConnectSaga = function* () {
   while (true) {
-    yield call(reconnect);
+    const socket = yield call(reconnect);
     //entender que esta linea se va a ejecutar solo cuando resuelva la
     //promise del reconnect, es decir solo cuando el socket conecte
+    const room = yield select(roomSelector)
+    socket.emit('state_update', {room : room});
     yield put({ type: SERVER_ON });
   }
 };
