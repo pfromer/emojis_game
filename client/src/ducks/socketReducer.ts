@@ -1,7 +1,7 @@
 
 import * as io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
-import { take, call, put, fork, race, cancelled, delay, select, takeLatest } from 'redux-saga/effects';
+import { take, call, put, fork, race, cancelled, delay, select, takeLatest, all } from 'redux-saga/effects';
 import { Card } from '../types/game';
 
 const START_CHANNEL = 'START_CHANNEL';
@@ -87,7 +87,7 @@ const createSocketChannel = socket => eventChannel((emit) => {
   //decimos que cada vez que al socket le llegue un "newTask"
   //se tiene que "emitir" esa tarea en este canal
 
-  let messageTypes = ['join_room', 'second_user_joined', 'player_click'];
+  let messageTypes = ['join_room', 'second_user_joined', 'player_click', 'state_update'];
   messageTypes.forEach(messageType => socket.on(messageType, handler(messageType)))
 
   //ver la documentacion de eventChannel. la funcion subscriptora debe
@@ -188,8 +188,30 @@ const listenServerSaga = function* () {
           })
           
           break;
+        case("state_update") :
+          let lastActionIndex =  yield select(lastActionsIndexSelector)
 
+          yield all(payload.data.actions.slice(Math.max(lastActionIndex + 1,1), payload.data.actions.length).map(action => put({ 
+            type: 'PLAYER_GUESS',
+            playerId: action.playerId,
+            iconId: action.iconId,
+            cardId: action.cardId,
+          })));
 
+          /*payload.data.actions.slice(Math.max(lastActionIndex + 1,1), payload.data.actions.length).forEach(action => {
+            put({ 
+              type: 'PLAYER_GUESS',
+              playerId: action.playerId,
+              iconId: action.iconId,
+              cardId: action.cardId,
+            })
+          });*/
+
+          yield put({
+            type: 'UPDATE_LAST_ACTION_INDEX',
+            lastActionIndex: payload.data.actions.length - 1
+          })
+          break;
         default:
           break;
       }
@@ -274,3 +296,4 @@ const firstPlayerNameSelector = (state): string => (state.gameReducer.players[0]
 const secondPlayerNameSelector = (state): string => (state.gameReducer.players[1].name)
 const isFirstUserSelector = (state): string => (state.gameReducer.isFirstUser)
 const allCardsSelector = (state): [Card] => state.gameReducer.allCards.sort(function (x, y) { return x.index < y.index ? -1 : 1 })
+const lastActionsIndexSelector = (state): Number => state.gameReducer.lastActionIndex

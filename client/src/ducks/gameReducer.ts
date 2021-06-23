@@ -9,6 +9,7 @@ const RESET = 'RESET'
 const SET_IS_FIRST_USER = 'SET_IS_FIRST_USER'
 const BUILD_DECK = 'BUILD_DECK'
 const ROTATE_CARD = 'ROTATE_CARD';
+const UPDATE_LAST_ACTION_INDEX = 'UPDATE_LAST_ACTION_INDEX';
 
 const shareCards = (state: Game): { players: Player[] } => {
     let cardsByPlayer: number = Math.floor((state.deck.length - 1) / (state.players.length));
@@ -70,7 +71,8 @@ const initalGame = (): Game => {
         zIndex: 56,
         allCards: [],
         playersCount: null,
-        isFirstUser: true
+        isFirstUser: true,
+        lastActionIndex: 0
     }
 }
 
@@ -135,7 +137,8 @@ export default (state: Game = initialGameState, action: any): Game => {
             return initalGame();
         case SET_IS_FIRST_USER:
             return {...state, isFirstUser : action.isFirstUser}
-
+        case UPDATE_LAST_ACTION_INDEX:
+            return {...state, lastActionIndex : action.lastActionIndex}
         default:
             return state;
     }
