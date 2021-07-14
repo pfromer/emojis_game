@@ -57,29 +57,32 @@ const SecondUserStartPage = (props) => {
     setName(event.target.value)
   }
 
+  console.log("Start page game started", gameStarted)
+
   return (
     <React.Fragment>
-      {!gameStarted && (    <MainContainer>
-      <SecondContainer>
-      <Emoji1>🕓 </Emoji1> 
-      <div>
-            <CenteredH1>
-              Welcome to Emojis Fun!! {friend_name} is waiting for you to join.
-            </CenteredH1>
-            <CenteredH2>
-              Please enter your name
-            </CenteredH2>
-            <CenteredForm onSubmit={handleSubmit}>
-              <label>
-                Name:
-                <input type="text"  onChange={handleChange} />
-              </label>
-              <input type="submit" value="Submit" />
-            </CenteredForm>
+      {!gameStarted && (
+      <MainContainer>
+        <SecondContainer>
+          <Emoji1>🕓 </Emoji1> 
+            <div>
+              <CenteredH1>
+                Welcome to Emojis Fun!! {friend_name} is waiting for you to join.
+              </CenteredH1>
+              <CenteredH2>
+                Please enter your name
+              </CenteredH2>
+              <CenteredForm onSubmit={handleSubmit}>
+                <label>
+                  Name:
+                  <input type="text"  onChange={handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+              </CenteredForm>
             </div>
-            <Emoji2>🕣 </Emoji2> 
-            </SecondContainer>
-          </MainContainer>
+          <Emoji2>🕣 </Emoji2> 
+        </SecondContainer>
+      </MainContainer>
           )}
       {gameStarted && (
         <Table/>

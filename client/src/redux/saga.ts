@@ -1,5 +1,7 @@
 import { fork } from 'redux-saga/effects';
-import { startStopChannel, createNewRoomSaga, joinRoomSaga, secondUserCompletedFormSaga, listenIconClickSaga } from '../ducks/socketReducer';
+import { createNewRoomSaga, joinRoomSaga, secondUserCompletedFormSaga, listenIconClickSaga } from  '../socketConnection/emitSagas'
+import { startStopChannel }  from '../socketConnection/connectSagas'
+
 import { watchStartPlaying, watchPlayerGuess } from '../sagas/game-saga';
 
 
@@ -11,7 +13,4 @@ export default function* rootSaga() {
   yield fork(joinRoomSaga)
   yield fork(secondUserCompletedFormSaga)
   yield fork(listenIconClickSaga)
-  
-  
-  // code after fork-effect
 }

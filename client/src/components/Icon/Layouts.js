@@ -49,7 +49,6 @@ export const Layouts = [
             top: 33,
             left: 36,
             rotate: -30
-        }
-              
+        }   
     ]
 ]

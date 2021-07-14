@@ -53,17 +53,23 @@ io.on("connection", (socket) => {
         })
         delete rooms[payload.room]
       }, 1000*3600)
-
-
-      setInterval(function(){
+      
+      if(rooms[payload.room]) {
         io.to(payload.room).emit('state_update', {actions : rooms[payload.room].actions} );
-      }, 100);
+      }
+
+    })
+
+    socket.on('state_update', function(payload) {
+      if(rooms[payload.room]) {
+        io.to(payload.room).emit('state_update', {actions : rooms[payload.room].actions} );
+      }
     })
 
     socket.on('player_click', function(payload) {
       if(rooms[payload.room]) {
         var lastCardId = rooms[payload.room].actions[rooms[payload.room].actions.length - 1].cardId + 1
-        if(cards.filter(c => c.id == lastCardId)[0].icons.includes(payload.iconId)) {
+        if(cards.filter(c => c.id == lastCardId)[0].icons.includes(payload.iconId) && payload.cardId != lastCardId) {
           rooms[payload.room].actions.push(
             {
               playerId: payload.playerId,
@@ -71,6 +77,9 @@ io.on("connection", (socket) => {
               iconId: payload.iconId
             }
           )
+        }
+        if(rooms[payload.room]) {
+          io.to(payload.room).emit('state_update', {actions : rooms[payload.room].actions} );
         }
       }
     })

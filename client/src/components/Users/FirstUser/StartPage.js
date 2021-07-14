@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { createNewRoom } from '../../../ducks/socketReducer';
+import { connect, useDispatch } from 'react-redux';
+import { createNewRoom } from '../../../socketConnection/reducer'
 import { CenteredH1, CenteredForm, CenteredH2, MainContainer, SecondContainer, Emoji1, Emoji2 } from '../Styles'
 
 const FirstUserStartPage = (props) => {
