@@ -33,6 +33,8 @@ const FirstUserWaitingPage = (props) => {
   dispatch({
     type: 'JOIN_ROOM',
   })
+
+  console.log("First user waiting page game started", gameStarted)
   
   let room = useSelector(state => state.socketReducer.room)
   return (
