@@ -3,7 +3,6 @@ import { take, call, put, fork, race, cancelled, delay } from 'redux-saga/effect
 import { CHANNEL_ON, SERVER_OFF, CHANNEL_OFF, SERVER_ON } from './reducer';
 import { createSocketChannel } from './createSocketChannel';
 import { connect, getSocket, listenConnectSaga, listenDisconnectSaga } from './connectSagas';
-import secondUserJoinedHandler from './handlers/secondUserJoined';
 import playerClickedHandler from './handlers/playerClick';
 import stateUpdateHandler from './handlers/stateUpdate';
 
@@ -19,6 +18,7 @@ export const listenChannelSaga = function* () {
         timeout: delay(2000),
       });
       if (timeout) {
+        console.log("error SERVER_OFF")
         yield put({ type: SERVER_OFF });
       }
   
