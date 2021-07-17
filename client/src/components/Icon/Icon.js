@@ -30,7 +30,7 @@ export const Icon = (props) => {
     };
 
     return (
-        <StyledIcon i={index} layout={0} onClick={onClickHandler}>{icon.image}</StyledIcon>
+        <StyledIcon i={index} layout={0} onClick={onClickHandler} rotated={icon.rotated}>{icon.image}</StyledIcon>
     );
 };
 

@@ -1,5 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { Layouts } from './Layouts'
+
+
+const rotate = keyframes`
+0% {
+  background-color:red
+}
+100% {
+    background-color:white
+}
+  `;
 
 function setIcon(fontSize, top, left, rotate) {
     return `
@@ -23,5 +33,10 @@ export const StyledIcon = styled('span') <{ i: number, layout: number }>`
    
     ${props => css`
         ${setLayout(props.layout, props.i)}       
+    `}
+
+    ${props => props.rotated && css`
+        animation: ${rotate} 4s ease;
+        animation-fill-mode: forwards;
     `}
 `

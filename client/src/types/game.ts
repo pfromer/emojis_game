@@ -1,7 +1,8 @@
 export type Icon = {
     name: string
     image: string
-    id: number
+    id: number,
+    rotated: boolean
 }
 
 export type Card = {
@@ -17,7 +18,7 @@ export interface PositionedCard extends Card {
     index: number,
     shareCard: boolean,
     initialPosition: boolean,
-    rotated: boolean
+    rotated: boolean 
 }
 
 export type Player = {

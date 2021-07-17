@@ -1,3 +1,4 @@
+import { IconsContainer } from "../components/Welcome/Styles";
 import { Icon } from "../types/game";
 
 export const allIcons: Icon[] = [
@@ -251,7 +252,9 @@ export const allIcons: Icon[] = [
         id: 59,
         image: "🧟"
     }
-]
+].map(function(icon){ 
+    return {...icon, rotated: false}
+})
 
 
 
