@@ -27,7 +27,7 @@ const initalGame = (): Game => {
         allCards: [],
         playersCount: null,
         isFirstUser: true,
-        lastActionIndex: 0
+        lastActionIndex: -1
     }
 }
 

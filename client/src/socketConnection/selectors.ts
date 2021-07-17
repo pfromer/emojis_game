@@ -6,3 +6,4 @@ export const secondPlayerNameSelector = (state): string => (state.gameReducer.pl
 export const isFirstUserSelector = (state): string => (state.gameReducer.isFirstUser)
 export const allCardsSelector = (state): [Card] => state.gameReducer.allCards.sort(function (x, y) { return x.index < y.index ? -1 : 1 })
 export const lastActionsIndexSelector = (state): Number => state.gameReducer.lastActionIndex
+export const playersLengthSelector = (state): Number => state.gameReducer.players.length

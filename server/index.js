@@ -40,11 +40,19 @@ io.on("connection", (socket) => {
 
     socket.on('second_user_joined', function(payload) {
       const rand = randomOrder()
-      io.to(payload.room).emit('second_user_joined', {secondUserName : payload.secondUserName, randomOrder : rand});
+      //io.to(payload.room).emit('second_user_joined', {secondUserName : payload.secondUserName, randomOrder : rand});
+
+
+      rooms[payload.room].actions.push({
+        type: 'second_user_joined',
+        secondUserName: payload.secondUserName,
+        randomOrder : rand
+      })
 
       rooms[payload.room].actions.push({
         playerId: -1,
         cardId: rand[0],
+        type: 'first_card',
       })
       
       setTimeout(function(){
@@ -74,7 +82,8 @@ io.on("connection", (socket) => {
             {
               playerId: payload.playerId,
               cardId: payload.cardId -1,
-              iconId: payload.iconId
+              iconId: payload.iconId,
+              type: 'player_click',
             }
           )
         }

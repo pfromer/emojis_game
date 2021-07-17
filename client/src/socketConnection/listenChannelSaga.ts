@@ -50,9 +50,6 @@ export const listenChannelSaga = function* () {
         console.log("message-received", payload);
   
         switch(payload.messageType) {
-          case("second_user_joined") :
-            yield call(secondUserJoinedHandler, payload)
-            break;
           case("player_click") :
             yield call(playerClickedHandler, payload)
             break;

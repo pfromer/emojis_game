@@ -3,6 +3,7 @@ import { createNewRoomSaga, joinRoomSaga, secondUserCompletedFormSaga, listenIco
 import { startStopChannel }  from '../socketConnection/connectSagas'
 
 import { watchStartPlaying, watchPlayerGuess } from '../sagas/game-saga';
+import secondUserJoinedHandler from '../socketConnection/handlers/secondUserJoined';
 
 
 export default function* rootSaga() {
@@ -13,4 +14,6 @@ export default function* rootSaga() {
   yield fork(joinRoomSaga)
   yield fork(secondUserCompletedFormSaga)
   yield fork(listenIconClickSaga)
+  yield fork(secondUserJoinedHandler)
+  
 }
