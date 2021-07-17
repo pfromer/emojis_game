@@ -61,6 +61,7 @@ const SecondUserStartPage = (props) => {
 
   return (
     <React.Fragment>
+      <a href={process.env.DOMAIN}>New Game</a>
       {!gameStarted && (
       <MainContainer>
         <SecondContainer>

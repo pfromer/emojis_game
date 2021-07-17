@@ -30,6 +30,7 @@ function setLayout(layout, i) {
 }
 export const StyledIcon = styled('span') <{ i: number, layout: number }>`
     position: absolute;
+    cursor: pointer;
    
     ${props => css`
         ${setLayout(props.layout, props.i)}       

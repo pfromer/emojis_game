@@ -25,27 +25,30 @@ const FirstUserStartPage = (props) => {
   }
 
   return (
-    <MainContainer>
-      <SecondContainer>
-        <Emoji1>😂 </Emoji1> 
-      <div>
-        <CenteredH1>
-        Welcome to Emojis Fun!!
-        </CenteredH1>
-        <CenteredH2>
-          Please enter your name
-        </CenteredH2>
-        <CenteredForm onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="text"  onChange={handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </CenteredForm>
-        </div>
-        <Emoji2>😂</Emoji2>
-      </SecondContainer>
-    </MainContainer>
+    <React.Fragment>
+      <a href={process.env.DOMAIN}>New Game</a>
+      <MainContainer>
+        <SecondContainer>
+          <Emoji1>😂 </Emoji1> 
+        <div>
+          <CenteredH1>
+          Welcome to Emojis Fun!!
+          </CenteredH1>
+          <CenteredH2>
+            Please enter your name
+          </CenteredH2>
+          <CenteredForm onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <input type="text"  onChange={handleChange} />
+            </label>
+            <input type="submit" value="Submit" />
+          </CenteredForm>
+          </div>
+          <Emoji2>😂</Emoji2>
+        </SecondContainer>
+      </MainContainer>
+    </React.Fragment>
   );
 };
 

@@ -38,8 +38,8 @@ const FirstUserWaitingPage = (props) => {
   
   let room = useSelector(state => state.socketReducer.room)
   return (
-
     <React.Fragment>
+       <a href={process.env.DOMAIN}>New Game</a>
       {!gameStarted && (
         <MainContainer>
           <div>
