@@ -42,30 +42,28 @@ io.on("connection", (socket) => {
       const rand = randomOrder()
       //io.to(payload.room).emit('second_user_joined', {secondUserName : payload.secondUserName, randomOrder : rand});
 
-
-      rooms[payload.room].actions.push({
-        type: 'second_user_joined',
-        secondUserName: payload.secondUserName,
-        randomOrder : rand
-      })
-
-      rooms[payload.room].actions.push({
-        playerId: -1,
-        cardId: rand[0],
-        type: 'first_card',
-      })
-      
-      setTimeout(function(){
-        io.sockets.clients(payload.room).forEach(function(s){
-          s.leave(payload.room);
-        })
-        delete rooms[payload.room]
-      }, 1000*3600)
-      
       if(rooms[payload.room]) {
+        rooms[payload.room].actions.push({
+          type: 'second_user_joined',
+          secondUserName: payload.secondUserName,
+          randomOrder : rand
+        })
+  
+        rooms[payload.room].actions.push({
+          playerId: -1,
+          cardId: rand[0],
+          type: 'first_card',
+        })
+        
+        setTimeout(function(){
+          io.sockets.clients(payload.room).forEach(function(s){
+            s.leave(payload.room);
+          })
+          delete rooms[payload.room]
+        }, 1000*3600)
+
         io.to(payload.room).emit('state_update', {actions : rooms[payload.room].actions} );
       }
-
     })
 
     socket.on('state_update', function(payload) {
@@ -87,9 +85,7 @@ io.on("connection", (socket) => {
             }
           )
         }
-        if(rooms[payload.room]) {
-          io.to(payload.room).emit('state_update', {actions : rooms[payload.room].actions} );
-        }
+        io.to(payload.room).emit('state_update', {actions : rooms[payload.room].actions} );
       }
     })
 });

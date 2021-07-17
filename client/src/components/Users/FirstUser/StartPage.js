@@ -24,6 +24,12 @@ const FirstUserStartPage = (props) => {
     setName(event.target.value)
   }
 
+  //hack:: this game does not support https
+  //TOOD: upload SSL certificate somehow to websocket server (amazon at this moment)
+  if(location.protocol.includes("https")) {
+    window.location.replace(process.env.DOMAIN);
+  }
+
   return (
     <React.Fragment>
       <a href={process.env.DOMAIN}>New Game</a>
