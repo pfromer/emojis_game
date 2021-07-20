@@ -41,5 +41,7 @@ export type Game = {
     allCards: PositionedCard[],
     playersCount: number | null,
     isFirstUser: boolean,
-    lastActionIndex: Number
+    lastActionIndex: Number,
+    blocked: boolean,
+    remainingTime: number | null
 }

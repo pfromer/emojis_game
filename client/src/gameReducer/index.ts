@@ -17,6 +17,9 @@ const SET_IS_FIRST_USER = 'SET_IS_FIRST_USER'
 const BUILD_DECK = 'BUILD_DECK'
 const ROTATE_CARD = 'ROTATE_CARD';
 const UPDATE_LAST_ACTION_INDEX = 'UPDATE_LAST_ACTION_INDEX';
+const BLOCK_SCREEN = 'BLOCK_SCREEN';
+const UNBLOCK_SCREEN = 'UNBLOCK_SCREEN';
+
 
 export default (state: Game = initalGame(), action: any): Game => {
     switch (action.type) {
@@ -38,6 +41,10 @@ export default (state: Game = initalGame(), action: any): Game => {
             return {...state, isFirstUser : action.isFirstUser}
         case UPDATE_LAST_ACTION_INDEX:
             return {...state, lastActionIndex : action.lastActionIndex}
+        case BLOCK_SCREEN:
+            return {...state, blocked : true, remainingTime : action.remainingTime}
+        case UNBLOCK_SCREEN:
+            return {...state, blocked : false, remainingTime : 0 }
         default:
             return state;
     }

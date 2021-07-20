@@ -60,3 +60,34 @@ export const FlexContainer = styled.div`
     justify-content: center;
 
 `
+
+export const DimScreen = styled.div`
+    position:absolute;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 55%);
+    z-index: 900;
+`
+
+export const WrongIconMessage = styled.div`
+    top: 40%;
+    left: calc(50vw - 35vh + 0vw);
+    position: absolute;
+    font-size: 4em;
+    color: white;
+`
+
+export const RemainingTimeDiv = styled.div`
+    top: 50%;
+    left: calc(50vw - 2vh );
+    position: absolute;
+    font-size: 4em;
+    color: white;
+`
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '../Card/Card';
-import { Container, OponentPlayerLabel, MainPlayerLabel, GameOver, Action, FlexContainer } from './Styles.ts'
+import { Container, OponentPlayerLabel, MainPlayerLabel, GameOver, Action, FlexContainer, DimScreen, WrongIconMessage, RemainingTimeDiv  } from './Styles.ts'
 import { useDispatch } from 'react-redux'
 
 const cardWidth = {
@@ -11,7 +11,7 @@ const cardWidth = {
 }
 
 const Table = (props) => {
-  const { gameStarted, allCards, oponentPlayerName, currentPlayerName, gameWon, gameLost } = props;
+  const { gameStarted, allCards, oponentPlayerName, currentPlayerName, gameWon, gameLost, blocked, remainingTime} = props;
 
   console.log("GAME WON", gameWon)
   console.log("GAME LOST", gameLost)
@@ -21,6 +21,12 @@ const Table = (props) => {
 
   return (
     <React.Fragment>
+      {blocked &&(
+        <DimScreen>
+          <WrongIconMessage>WRONG ICON PENALTY</WrongIconMessage>
+          <RemainingTimeDiv>{remainingTime}</RemainingTimeDiv>
+        </DimScreen>
+      )}
       {gameStarted &&(
         <Container gameOver={gameLost || gameWon}>
           <OponentPlayerLabel>{oponentPlayerName}</OponentPlayerLabel>
@@ -47,7 +53,9 @@ const mapStateToProps = state => ({
   currentPlayerName: state.gameReducer.players.filter(p => p.isCurrentPlayer)[0].name,
   oponentPlayerName: state.gameReducer.players.filter(p => !p.isCurrentPlayer)[0].name,
   gameWon: state.gameReducer.gameWon,
-  gameLost: state.gameReducer.gameLost
+  gameLost: state.gameReducer.gameLost,
+  blocked: state.gameReducer.blocked,
+  remainingTime: state.gameReducer.remainingTime
 });
 
 export default connect(mapStateToProps)(Table);

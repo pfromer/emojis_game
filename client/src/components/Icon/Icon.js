@@ -25,7 +25,9 @@ export const Icon = (props) => {
           })
         }
       } else {
-        //TODO block game for 8 seconds
+        dispatch({
+          type: 'WRONG_ICON'
+        })
       }
     };
 

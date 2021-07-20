@@ -1,6 +1,8 @@
 import { fork } from 'redux-saga/effects';
 import { createNewRoomSaga, joinRoomSaga, secondUserCompletedFormSaga, listenIconClickSaga } from  '../socketConnection/emitSagas'
 import { startStopChannel }  from '../socketConnection/connectSagas'
+import { whatcPenalty }  from '../sagas/penalty'
+
 
 import { watchStartPlaying, watchPlayerGuess } from '../sagas/game-saga';
 import secondUserJoinedHandler from '../socketConnection/handlers/secondUserJoined';
@@ -15,5 +17,7 @@ export default function* rootSaga() {
   yield fork(secondUserCompletedFormSaga)
   yield fork(listenIconClickSaga)
   yield fork(secondUserJoinedHandler)
+  yield fork(whatcPenalty)
+  
   
 }
